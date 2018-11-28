@@ -3,6 +3,7 @@
 <a href="https://travis-ci.org/rohit517/Lane-Detection">
 <img src="https://travis-ci.org/rohit517/Prometheus_Frontier_Explorer.svg?branch=master">
 </a>
+<a href='https://coveralls.io/github/rohit517/Prometheus_Frontier_Explorer?branch=master'><img src='https://coveralls.io/repos/github/rohit517/Prometheus_Frontier_Explorer/badge.svg?branch=master' alt='Coverage Status' /></a>
 <a href='https://github.com/rohit517/Prometheus_Frontier_Explorer/blob/master/LICENSE'><img src='https://img.shields.io/badge/License-BSD%203--Clause-blue.svg'/></a>
 </p>
 
@@ -28,8 +29,10 @@ For running prometheus we must have the following dependencies:
 - Ubuntu 16.04
 - ROS Kinetic 
 - Turtlebot package.
+- Gazebo version 7.0 or higher.
 
-ROS Kinetic can be installed by following the instructions given [here](http://wiki.ros.org/kinetic/Installation). 
+ROS Kinetic can be installed by following the instructions given [here](http://wiki.ros.org/kinetic/Installation). Gazebo installation steps can be found [here](http://gazebosim.org/tutorials?cat=guided_b&tut=guided_b1). 
+
 
 Following steps/instructions will be updated soon. 
 
@@ -40,6 +43,8 @@ Following steps/instructions will be updated soon.
 ## Demo
 
 ## Test
+
+## API
 
 ## Known issues/bugs
 
