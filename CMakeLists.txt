@@ -201,8 +201,8 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(scanner src/main.cpp src/FrontierExplorer.cpp src/MapNode.cpp src/Map.cpp)
-target_link_libraries(scanner ${catkin_LIBRARIES} ${OpenCV_LIBS})
+add_executable(prometheus src/main.cpp src/FrontierExplorer.cpp src/MapNode.cpp src/Map.cpp)
+target_link_libraries(prometheus ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 if(CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
