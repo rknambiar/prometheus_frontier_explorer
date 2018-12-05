@@ -203,3 +203,27 @@ include_directories(
 
 add_executable(scanner src/main.cpp src/FrontierExplorer.cpp src/MapNode.cpp src/Map.cpp)
 target_link_libraries(scanner ${catkin_LIBRARIES} ${OpenCV_LIBS})
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
+
+  add_rostest_gtest(
+  prometheusTests
+  test/prometheusTests.launch
+  test/main.cpp
+  test/MapNodeTest.cpp
+  test/MapTest.cpp
+  src/MapNode.cpp
+  src/Map.cpp
+  )
+  target_link_libraries(
+  prometheusTests
+  ${catkin_LIBRARIES}
+  )
+  add_dependencies(
+  prometheusTests
+  prometheus
+  ${catkin_EXPORTED_TARGETS}
+  )
+endif()
