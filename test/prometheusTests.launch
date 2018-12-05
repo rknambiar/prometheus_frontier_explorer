@@ -1,0 +1,4 @@
+<launch>
+  <!--<node pkg="prometheus_frontier_explorer" name="prometheus" type="prometheus" />-->
+  <test pkg="prometheus_frontier_explorer" test-name="prometheusTests" type="prometheusTests" />
+</launch>
