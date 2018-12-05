@@ -42,17 +42,68 @@
 #include "FrontierExplorer.hpp"
 
 FrontierExplorer::FrontierExplorer() {
-  // TODO(harshkakashaniya) constructor for setup of publisher and subscriber.
+  // Initialize publisher topic
+  velPub = nh.advertise < geometry_msgs::Twist
+      > ("/mobile_base/commands/velocity", 100);
+
+  // Sunscriber to map message
+  mapSub = nh.subscribe("/map", 100, &FrontierExplorer::processOccupancyGrid,
+                        this);
+
+  // Set start velocity message to zero
+  velMsg.linear.x = 0.0;
+  velMsg.linear.y = 0.0;
+  velMsg.linear.z = 0.0;
+  velMsg.angular.x = 0.0;
+  velMsg.angular.y = 0.0;
+  velMsg.angular.z = 0.0;
+
+  // Publish the velocity
+  velPub.publish(velMsg);
+
+  // Visualization markers for frontier and centroids
+  frontierMarkerPub = nh.advertise < visualization_msgs::MarkerArray
+      > ("/frontier_marker_array", 1);
+
+  allFrontierPub = nh.advertise < visualization_msgs::MarkerArray
+      > ("/all_frontier_marker_array", 1);
+
+  frontierClusterPub = nh.advertise < visualization_msgs::MarkerArray
+      > ("/frontier_clustor_array", 1);
+
+  ROS_INFO("New frontier exploration turtle bot created.");
 }
 
 FrontierExplorer::~FrontierExplorer() {
-  // TODO(harshkakashaniya) destructor should be used to distruct objects
-  // and set velocities to zero.
+  // Set velocity to zero on exit
+  velMsg.linear.x = 0.0;
+  velMsg.linear.y = 0.0;
+  velMsg.linear.z = 0.0;
+  velMsg.angular.x = 0.0;
+  velMsg.angular.y = 0.0;
+  velMsg.angular.z = 0.0;
+
+  // Publish the velocity
+  velPub.publish(velMsg);
 }
 
 void FrontierExplorer::rotate360() {
-  // TODO(harshkakashaniya) Rotate robot by 360 degree to have an initial scan.
+  velMsg.linear.x = 0.0;
+  velMsg.linear.y = 0.0;
+  velMsg.linear.z = 0.0;
+  velMsg.angular.x = 0.0;
+  velMsg.angular.y = 0.0;
+  velMsg.angular.z = 0.8;
+  ros::Time begin = ros::Time::now();
+  ros::Duration waitTime = ros::Duration(7.5);
+  ros::Time end = begin + waitTime;
+  std::cout << "[ Start time:]" << begin << std::endl;
+  while (ros::Time::now() < end && ros::ok()) {
+    // Publish the velocity
+    velPub.publish(velMsg);
   }
+  std::cout << "[ End time:]" << ros::Time::now() << std::endl;
+}
 
 void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
                                             ::ConstPtr& gridMsg) {
