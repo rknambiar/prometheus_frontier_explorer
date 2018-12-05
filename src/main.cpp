@@ -45,10 +45,8 @@
 int main(int argc, char **argv) {
   // Initialize ros node
   ros::init(argc, argv, "explorer");
-
   // Create FrontierExplorer class object
   FrontierExplorer prometheus;
-
   // Call explore method
   prometheus.explore();
   return 0;

@@ -46,70 +46,70 @@
 #include "Map.hpp"
 
 Map::Map() {
-//TODO initialize constructor
+// TODO(harshkakashaniya) initialize constructor
 }
 
 Map::~Map() {
-//TODO initialize destructor
+// TODO(harshkakashaniya) initialize destructor
 }
 
 void Map::setMapSet(bool value) {
-  //TODO set map
+  // TODO(harshkakashaniya) set map
 }
 
 bool Map::getMapSet() {
-  //TODO get map
+  // TODO(harshkakashaniya) get map
   return true;
 }
 
 int Map::getmapHeight() {
-  //TODO get map height
+  // TODO(harshkakashaniya) get map height
 return 1;
 }
 
 int Map::getmapWidth() {
-  //TODO get map width
+  // TODO(harshkakashaniya) get map width
 return 1;
 }
 
 double Map::getmapReso() {
-  //TODO get map resolution
+  // TODO(harshkakashaniya) get map resolution
 return 1.0;
 }
 
 void Map::setmapHeight(int value) {
-  //TODO set map Height
+  // TODO(harshkakashaniya) set map Height
 }
 
 void Map::setmapWidth(int value) {
-  //TODO set map width
+  // TODO(harshkakashaniya) set map width
 }
 
 void Map::setmapReso(double value) {
-  //TODO set map resolution
+  // TODO(harshkakashaniya) set map resolution
 }
 
 void Map::setOrigin(geometry_msgs::Point point) {
-  //TODO set origin
+  // TODO(harshkakashaniya) set origin
 }
 
 geometry_msgs::Point Map::getOrigin() {
-  //TODO get origin
+  // TODO(harshkakashaniya) get origin
 }
 
 std::vector<std::vector<MapNode>>& Map::getMap() {
-  //TODO get map
+  // TODO(harshkakashaniya) get map
 }
 
 bool Map::updateMapParams(int currentWidth, int currentHeight,
                           double currentReso,
                           geometry_msgs::Point currCenter) {
-  //TODO update map parameters
+  // TODO(harshkakashaniya) update map parameters
 return true;
 }
 
 void Map::updateMap(int currentWidth, int currentHeight, double currentReso,
                     geometry_msgs::Point mapCenter,
                     const nav_msgs::OccupancyGrid::ConstPtr& gridMsg) {
-  //TODO update map
+  // TODO(harshkakashaniya) update map
 }

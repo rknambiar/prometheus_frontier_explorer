@@ -44,15 +44,19 @@
  *  Map class header declaration
  */
 
+  #ifndef INCLUDE_MAP_HPP_
+  #define INCLUDE_MAP_HPP_
+
+#include <nav_msgs/OccupancyGrid.h>
 // C++ headers
 #include <iostream>
 #include <vector>
 #include <cstdint>
 
-// ROS headers
-#include <nav_msgs/OccupancyGrid.h>
-#include "ros/ros.h"
 
+
+// ROS headers
+#include "ros/ros.h"
 #include "MapNode.hpp"
 
 /**
@@ -61,7 +65,6 @@
  * Class for storing occupancy grid map
  */
 class Map {
-
  public:
   /**
    *  @brief Default constructor for Map class
@@ -223,3 +226,5 @@ class Map {
   // Map origin
   geometry_msgs::Point origin;
 };
+
+#endif  // INCLUDE_MAP_HPP_

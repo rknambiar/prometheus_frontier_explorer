@@ -42,44 +42,46 @@
 #include "FrontierExplorer.hpp"
 
 FrontierExplorer::FrontierExplorer() {
-  //TODO constructor for setup of publisher and subscriber.
+  // TODO(harshkakashaniya) constructor for setup of publisher and subscriber.
 }
 
 FrontierExplorer::~FrontierExplorer() {
-  // TODO destructor should be used to distruct objects
+  // TODO(harshkakashaniya) destructor should be used to distruct objects
   // and set velocities to zero.
 }
 
 void FrontierExplorer::rotate360() {
-  //TODO Rotate robot by 360 degree to have an initial scan.
+  // TODO(harshkakashaniya) Rotate robot by 360 degree to have an initial scan.
   }
 
-void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid::ConstPtr& gridMsg){
-  //TODO process occupancy grid
+void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
+                                            ::ConstPtr& gridMsg) {
+  // TODO(harshkakashaniya) process occupancy grid
 }
 
 int FrontierExplorer::getFrontiers() {
-  //TODO get frontier with gmapping library
+  // TODO(harshkakashaniya) get frontier with gmapping library
   return 1;
 }
 
 void FrontierExplorer::getClusters() {
-  //TODO get centroid with the help of clusters.
+  // TODO(harshkakashaniya) get centroid with the help of clusters.
 }
 
 
-void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double, double>> centers){
-    //TODO use markers for cluster center.
+void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
+                                                double>> centers) {
+    // TODO(harshkakashaniya) use markers for cluster center.
 }
 
 void FrontierExplorer::visualizeClusterFrontiers() {
-    //TODO visualize cluster frontiers.
+    // TODO(harshkakashaniya) visualize cluster frontiers.
 }
 void FrontierExplorer::publishFrontierPoints(int count) {
-  //TODO publish frontier points
+  // TODO(harshkakashaniya) publish frontier points
 }
 
 
 void FrontierExplorer::explore() {
-  //TODO explore around for different frontier.
+  // TODO(harshkakashaniya) explore around for different frontier.
     }

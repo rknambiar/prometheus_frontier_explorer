@@ -44,6 +44,9 @@
  *  MapNode class header declaration
  */
 
+  #ifndef INCLUDE_MAPNODE_HPP_
+  #define INCLUDE_MAPNODE_HPP_
+
 #include <cstdint>
 
 /**
@@ -177,3 +180,5 @@ class MapNode {
   // Node frontier index
   int frontierIndex;
 };
+
+#endif  // INCLUDE_MAPNODE_HPP_
