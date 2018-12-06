@@ -1,10 +1,10 @@
 <h1 align="center"> Prometheus - Frontier Exploration Package</h1>
 <p align="center">
-<a href="https://travis-ci.org/rohit517/Lane-Detection">
-<img src="https://travis-ci.org/rohit517/Prometheus_Frontier_Explorer.svg?branch=master">
+<a href="https://travis-ci.org/rohit517/prometheus_frontier_explorer">
+<img src="https://travis-ci.org/rohit517/prometheus_frontier_fxplorer.svg?branch=master">
 </a>
-<a href='https://coveralls.io/github/rohit517/Prometheus_Frontier_Explorer?branch=master'><img src='https://coveralls.io/repos/github/rohit517/Prometheus_Frontier_Explorer/badge.svg?branch=master' alt='Coverage Status' /></a>
-<a href='https://github.com/rohit517/Prometheus_Frontier_Explorer/blob/master/LICENSE'><img src='https://img.shields.io/badge/License-BSD%203--Clause-blue.svg'/></a>
+<a href='https://coveralls.io/github/rohit517/prometheus_frontier_explorer?branch=master'><img src='https://coveralls.io/repos/github/rohit517/prometheus_frontier_explorer/badge.svg?branch=master' alt='Coverage Status' /></a>
+<a href='https://github.com/rohit517/prometheus_frontier_explorer/blob/master/LICENSE'><img src='https://img.shields.io/badge/License-BSD%203--Clause-blue.svg'/></a>
 </p>
 
 ## Overview
