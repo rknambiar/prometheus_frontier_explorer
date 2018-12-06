@@ -46,70 +46,152 @@
 #include "Map.hpp"
 
 Map::Map() {
-// TODO(harshkakashaniya) initialize constructor
+  // Set Map parameters on object creation
+  mapSet = false;
+  mapHeight = 0;
+  mapWidth = 0;
+  mapReso = 0.05;
+  origin.x = 0.0;
+  origin.y = 0.0;
+  origin.z = 0.0;
 }
 
 Map::~Map() {
-// TODO(harshkakashaniya) initialize destructor
 }
 
 void Map::setMapSet(bool value) {
-  // TODO(harshkakashaniya) set map
+  mapSet = value;
 }
 
 bool Map::getMapSet() {
-  // TODO(harshkakashaniya) get map
-  return true;
+  return mapSet;
 }
 
 int Map::getmapHeight() {
-  // TODO(harshkakashaniya) get map height
-return 1;
+  return mapHeight;
 }
 
 int Map::getmapWidth() {
-  // TODO(harshkakashaniya) get map width
-return 1;
+  return mapWidth;
 }
 
 double Map::getmapReso() {
-  // TODO(harshkakashaniya) get map resolution
-return 1.0;
+  return mapReso;
 }
 
 void Map::setmapHeight(int value) {
-  // TODO(harshkakashaniya) set map Height
+  mapHeight = value;
 }
 
 void Map::setmapWidth(int value) {
-  // TODO(harshkakashaniya) set map width
+  mapWidth = value;
 }
 
 void Map::setmapReso(double value) {
-  // TODO(harshkakashaniya) set map resolution
+  mapReso = value;
 }
 
 void Map::setOrigin(geometry_msgs::Point point) {
-  // TODO(harshkakashaniya) set origin
+  origin = point;
 }
 
 geometry_msgs::Point Map::getOrigin() {
-  // TODO(harshkakashaniya) get origin
+  return origin;
 }
 
 std::vector<std::vector<MapNode>>& Map::getMap() {
-  // TODO(harshkakashaniya) get map
+  //  std::cout << "Map sent with width: " << map.size() << ", Height: "
+  //            << map[0].size() << std::endl;
+  return map;
 }
 
 bool Map::updateMapParams(int currentWidth, int currentHeight,
                           double currentReso,
                           geometry_msgs::Point currCenter) {
-  // TODO(harshkakashaniya) update map parameters
-return true;
+  bool updateFlag = false;
+  if (currentWidth != mapWidth) {
+    ROS_INFO_STREAM(
+        "Map width updated from " << mapWidth << " to " << currentWidth);
+    mapWidth = currentWidth;
+    updateFlag = true;
+  }
+
+  if (currentHeight != mapHeight) {
+    ROS_INFO_STREAM(
+        "Map height updated from " << mapHeight << " to " << currentHeight);
+    mapHeight = currentHeight;
+    updateFlag = true;
+  }
+
+  if (currentReso != mapReso) {
+    ROS_INFO_STREAM(
+        "Map resolution updated from " << mapReso << " to " << currentReso);
+    mapReso = currentReso;
+    updateFlag = true;
+  }
+
+  if (currCenter.x != origin.x || currCenter.y != origin.y) {
+    origin.x = currCenter.x;
+    origin.y = currCenter.y;
+    origin.z = currCenter.z;
+    ROS_INFO_STREAM(
+        "Map origin updated at x:" << origin.x << ", y:" << origin.y);
+  }
+  return updateFlag;
 }
 
 void Map::updateMap(int currentWidth, int currentHeight, double currentReso,
                     geometry_msgs::Point mapCenter,
                     const nav_msgs::OccupancyGrid::ConstPtr& gridMsg) {
-  // TODO(harshkakashaniya) update map
+  //  ROS_INFO("Update Map function received with width:%d, height:%d",
+  //           currentWidth, currentHeight);
+  /* Check is map has been updated. If yes, set mapSet flag to false to reset
+   the map */
+  if (updateMapParams(currentWidth, currentHeight, currentReso, mapCenter)) {
+    mapSet = false;
+    ROS_INFO(
+        "Map reset as one of the parameter has been updated. Will initialize again..");
+  }
+
+  int mapIter = 0;
+  if (!mapSet) {
+    mapSet = true;
+    // Clearing out the vector incase re-initialized
+    map.clear();
+
+    // Loop to fill the map. We go from every width for each height
+    for (int i = 0; i < currentHeight; i++) {
+      std::vector<MapNode> rowNodes;
+      for (int j = 0; j < currentWidth; j++) {
+        MapNode currentNode;
+
+        // Calculate x and y
+        float x = j * mapReso + origin.x;
+        float y = i * mapReso + origin.y;
+
+        // Update in each node of map
+        currentNode.setX(x);
+        currentNode.setY(y);
+        currentNode.setProbability(gridMsg->data[mapIter]);
+        rowNodes.push_back(currentNode);
+        mapIter++;
+      }
+      map.push_back(rowNodes);
+    }
+    ROS_INFO_STREAM(
+        "Map Initialized. Current w:" << map[0].size() << ", h:" << map.size()
+            << ", resolution: " << mapReso << ", origin x: " << origin.x
+            << ", y: " << origin.y);
+  } else {
+    for (int i = 0; i < currentHeight; i++) {
+      for (int j = 0; j < currentWidth; j++) {
+        map[i][j].setProbability(gridMsg->data[mapIter]);
+        mapIter++;
+      }
+    }
+    ROS_INFO_STREAM(
+        "Map Updated. Current w:" << map[0].size() << " ,h:" << map.size()
+            << ", resolution: " << mapReso << ", origin x: " << origin.x
+            << ", y: " << origin.y);
+  }
 }
