@@ -42,54 +42,53 @@
 #include <MapNode.hpp>
 
 MapNode::MapNode() {
-  // TODO(harshkakashaniya) constructor
+  // Set default values for nodes
+  isFrontier = false;
+  y = -1;
+  x = -1;
+  probability = -1;
+  frontierIndex = -1;
 }
 
 MapNode::~MapNode() {
-  // TODO(harshkakashaniya) destructor
 }
 
 float MapNode::getX() {
-  // TODO(harshkakashaniya) to get X
-  return 1.0;
+  return x;
 }
 
 float MapNode::getY() {
-  // TODO(harshkakashaniya) to get X
-  return 1.0;
+  return y;
 }
 
 int8_t MapNode::getProbability() {
-  // TODO(harshkakashaniya) to get probability
-  return 1;
+  return probability;
 }
 
 void MapNode::setX(float value) {
-  // TODO(harshkakashaniya) to set X
+  x = value;
 }
 
 void MapNode::setY(float value) {
-  // TODO(harshkakashaniya) to get y
+  y = value;
 }
 
 void MapNode::setProbability(int8_t value) {
-  // TODO(harshkakashaniya) to set probability
+  probability = value;
 }
 
 bool MapNode::getisFrontier() {
-  // TODO(harshkakashaniya) to get status of frontier
-  return true;
+  return isFrontier;
 }
 
 void MapNode::setisFrontier(bool value) {
-  // TODO(harshkakashaniya) to set status of frontier
+  isFrontier = value;
 }
 
 int MapNode::getFrontierIndex() {
-  // TODO(harshkakashaniya) to get frontier index
-  return 1;
+  return frontierIndex;
 }
 
 void MapNode::setFrontierIndex(int value) {
-  // TODO(harshkakashaniya) to set frontier index
+  frontierIndex = value;
 }
