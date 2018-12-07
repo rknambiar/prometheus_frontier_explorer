@@ -160,17 +160,192 @@ int FrontierExplorer::getFrontiers() {
 }
 
 void FrontierExplorer::getClusters() {
-  // TODO(harshkakashaniya) get centroid with the help of clusters.
+  int width = slamMap.getmapWidth();
+  int height = slamMap.getmapHeight();
+
+  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+
+  // Declare structure to store clusters
+  std::vector<std::vector<std::pair<int, int>>> clusters;
+
+  // Left half algorithm
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      if (!map[i][j].getisFrontier()) {
+        continue;
+      } else if (i - 1 >= 0 && j - 1 >= 0
+          && map[i - 1][j - 1].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i - 1][j - 1].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      } else if ((i - 1 >= 0 && j - 1 >= 0
+          && map[i - 1][j].getFrontierIndex() == -1
+          && map[i][j - 1].getFrontierIndex() == -1)
+          || (i - 1 < 0 && j - 1 >= 0 && map[i][j - 1].getFrontierIndex() == -1)
+          || (i - 1 >= 0 && j - 1 < 0 && map[i - 1][j].getFrontierIndex() == -1)) {
+        map[i][j].setFrontierIndex(clusters.size());
+        std::vector<std::pair<int, int>> coordinates;
+        coordinates.push_back(std::make_pair(i, j));
+        clusters.push_back(coordinates);
+      } else if (i - 1 >= 0 && map[i - 1][j].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i - 1][j].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      } else if (j - 1 >= 0 && map[i][j - 1].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i][j - 1].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      }
+    }
+  }
+
+  // Right bruno algorithm
+  /*
+   for (int i = 0; i < height; i++) {
+   for (int j = 0; j < width; j++) {
+   if (!map[i][j].getisFrontier()) {
+   continue;
+   } else if (i - 1 >= 0 && j < width - 1
+   && map[i - 1][j + 1].getFrontierIndex() != -1) {
+   map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
+   clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+   }
+   }
+   }
+   */
+
+  // Filtering out smaller clusters
+  frontierCluster.clear();
+  for (auto row : clusters) {
+    if (row.size() > 20) {
+      frontierCluster.push_back(row);
+    }
+  }
+
+  ROS_INFO_STREAM("Number of clusters: " << frontierCluster.size());
 }
 
+std::vector<std::pair<double, double>> FrontierExplorer::getClusterCentroids() {
+  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+  std::vector<std::pair<double, double>> centroids;
+  for (auto row : frontierCluster) {
+    int i = 0, j = 0;
+    double sumX = 0, sumY = 0;
+    for (auto point : row) {
+      i = point.first;
+      j = point.second;
+      sumX = sumX + map[i][j].getX();
+      sumY = sumY + map[i][j].getY();
+    }
+    sumX = sumX / row.size();
+    sumY = sumY / row.size();
+    std::cout << "Centroid x: " << sumX << ", y: " << sumY << std::endl;
+    centroids.push_back(std::make_pair(sumX, sumY));
+  }
+  return centroids;
+}
 
 void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
                                                 double>> centers) {
-    // TODO(harshkakashaniya) use markers for cluster center.
+  visualization_msgs::MarkerArray clusterMarkerArray;
+  int clusterIndex = 0;
+  for (auto center : centers) {
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = "/map";
+    marker.header.stamp = ros::Time();
+    marker.ns = "cluster_center";
+    marker.id = clusterIndex;
+    marker.type = visualization_msgs::Marker::CUBE;
+
+    marker.action = visualization_msgs::Marker::ADD;
+
+    // Define the scale (meter scale)
+    marker.scale.x = 0.05;
+    marker.scale.y = 0.05;
+    marker.scale.z = 0.05;
+
+    // Set the color
+    marker.color.r = 0.0f;
+    marker.color.g = 1.0f;
+    marker.color.b = 0.0f;
+    marker.color.a = 0.8;
+    marker.lifetime = ros::Duration();
+
+    marker.pose.position.x = center.first;
+    marker.pose.position.y = center.second;
+    marker.pose.position.z = 0;
+    marker.pose.orientation.w = 1.0;
+
+    clusterIndex++;
+    clusterMarkerArray.markers.push_back(marker);
+  }
+
+  frontierClusterPub.publish(clusterMarkerArray);
+  ROS_INFO("Total %d markers published.", clusterIndex);
 }
 
 void FrontierExplorer::visualizeClusterFrontiers() {
-    // TODO(harshkakashaniya) visualize cluster frontiers.
+  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+  // 8 different colors(r,g,b). Loop after we get there
+  int colorSize = 8;
+  std::vector<std::tuple<double, double, double>> colors;
+  colors.push_back(std::make_tuple(0.5, 0.0, 0.0));
+  colors.push_back(std::make_tuple(0.0, 0.0, 1.0));
+  colors.push_back(std::make_tuple(0.0, 1.0, 0.0));
+  colors.push_back(std::make_tuple(0.0, 1.0, 1.0));
+  colors.push_back(std::make_tuple(1.0, 0.0, 0.0));
+  colors.push_back(std::make_tuple(1.0, 0.0, 1.0));
+  colors.push_back(std::make_tuple(1.0, 1.0, 0.0));
+  colors.push_back(std::make_tuple(1.0, 1.0, 1.0));
+
+  int colorCounter = 1;
+  int frontierIndex = 0;
+  int frontierNodeIndex = 0;
+  // Loop through the clusters
+  for (auto row : frontierCluster) {
+    visualization_msgs::MarkerArray clusterCenterMarkerArray;
+    for (auto point : row) {
+      visualization_msgs::Marker marker;
+      marker.header.frame_id = "/map";
+      marker.header.stamp = ros::Time();
+      marker.ns = "cluster_marker_frontier";
+      marker.id = frontierNodeIndex;
+      marker.type = visualization_msgs::Marker::CUBE;
+
+      marker.action = visualization_msgs::Marker::ADD;
+
+      // Define the scale (meter scale)
+      marker.scale.x = 0.02;
+      marker.scale.y = 0.02;
+      marker.scale.z = 0.02;
+
+      // Set the color
+      marker.color.r = std::get < 0 > (colors[colorCounter - 1]);
+      marker.color.g = std::get < 1 > (colors[colorCounter - 1]);
+      marker.color.b = std::get < 2 > (colors[colorCounter - 1]);
+      //      marker.color.r = 1.0;
+      //      marker.color.g = 0.0;
+      //      marker.color.b = 0.0;
+      marker.color.a = 0.8;
+      marker.lifetime = ros::Duration();
+
+      marker.pose.position.x = map[point.first][point.second].getX();
+      marker.pose.position.y = map[point.first][point.second].getY();
+      marker.pose.position.z = 0;
+      marker.pose.orientation.w = 1.0;
+
+      clusterCenterMarkerArray.markers.push_back(marker);
+      frontierNodeIndex++;
+    }
+    frontierIndex++;
+    // Adjust for color
+    if (colorCounter % 8 == 0) {
+      colorCounter = 1;
+    } else {
+      colorCounter++;
+    }
+    frontierMarkerPub.publish(clusterCenterMarkerArray);
+    ROS_INFO_STREAM(
+        "Published cluster no: " << frontierIndex << ", with color index: "
+            << colorCounter);
+  }
 }
 void FrontierExplorer::publishFrontierPoints(int count) {
   //  ROS_INFO("Publishing frontier markers... ");
@@ -245,6 +420,18 @@ void FrontierExplorer::explore() {
 
     // Check frontiers
     int count = getFrontiers();
+
+    getClusters();
+
+    // Get cluster centroids
+    std::vector<std::pair<double, double>> clusterCenters =
+        getClusterCentroids();
+
+    // Visualize cluster centroids
+    visualizeClusterCenters(clusterCenters);
+
+    // Visualize cluster frontiers
+    visualizeClusterFrontiers();
 
     // Visualize all frontiers
     publishFrontierPoints(count);
