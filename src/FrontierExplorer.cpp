@@ -107,12 +107,56 @@ void FrontierExplorer::rotate360() {
 
 void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
                                             ::ConstPtr& gridMsg) {
-  // TODO(harshkakashaniya) process occupancy grid
+  std::cout << "\n\n";
+  ROS_INFO("Occupancy message post-process called..");
+  int currwidth = gridMsg->info.width;  // x
+  int currheight = gridMsg->info.height;  // y
+  double currreso = gridMsg->info.resolution;
+  geometry_msgs::Point currcenter = gridMsg->info.origin.position;
+  std::cout << "[MAP INFO] Width: " << currwidth << ", Height: " << currheight
+            << ", Resolution: " << currreso;
+  std::cout << ", Origin: " << gridMsg->info.origin.position.x << ","
+      << gridMsg->info.origin.position.y << std::endl;
+
+  slamMap.updateMap(currwidth, currheight, currreso, currcenter, gridMsg);
 }
 
 int FrontierExplorer::getFrontiers() {
-  // TODO(harshkakashaniya) get frontier with gmapping library
-  return 1;
+  int width = slamMap.getmapWidth();
+  int height = slamMap.getmapHeight();
+  int frontierCount = 0;
+  //  ROS_INFO("Getting frontiers..");
+  ROS_INFO("Getting frontiers for map with w:%d, h:%d", width, height);
+  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      if (map[i][j].getProbability() == 0) {
+
+        bool frontierFlag = false;
+        // Check if neighbor is unexplored node
+        for (int k = i - 1; k <= i + 1; k++) {
+          for (int l = j - 1; l <= j + 1; l++) {
+            if (k >= 0 && l >= 0 && k <= height && l <= width
+                && map[k][l].getProbability() == -1) {
+              // Set flag to true
+              frontierFlag = true;
+            }
+          }
+        }
+        // Update in the map
+        map[i][j].setisFrontier(frontierFlag);
+        if (frontierFlag) {
+          frontierCount++;
+        }
+      }
+      // We also set its frontier id to -1
+      map[i][j].setFrontierIndex(-1);
+    }
+  }
+
+  ROS_INFO("Updated frontier flag and index with frontier count:%d",
+           frontierCount);
+  return frontierCount;
 }
 
 void FrontierExplorer::getClusters() {
@@ -129,10 +173,86 @@ void FrontierExplorer::visualizeClusterFrontiers() {
     // TODO(harshkakashaniya) visualize cluster frontiers.
 }
 void FrontierExplorer::publishFrontierPoints(int count) {
-  // TODO(harshkakashaniya) publish frontier points
+  //  ROS_INFO("Publishing frontier markers... ");
+  int width = slamMap.getmapWidth();
+  int height = slamMap.getmapHeight();
+
+  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+
+  visualization_msgs::MarkerArray markerArray;
+
+  int markerCount = 0;
+  int markerLimit = count;
+
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      if (map[i][j].getisFrontier()) {
+        visualization_msgs::Marker marker;
+        marker.header.frame_id = "/map";
+        marker.header.stamp = ros::Time();
+        marker.ns = "Frontier";
+        marker.id = markerCount;
+        marker.type = visualization_msgs::Marker::SPHERE;
+
+        marker.action = visualization_msgs::Marker::ADD;
+
+        // Define the scale (meter scale)
+        marker.scale.x = 0.02;
+        marker.scale.y = 0.02;
+        marker.scale.z = 0.02;
+
+        // Set the color
+        marker.color.r = 0.0f;
+        marker.color.g = 0.41f;
+        marker.color.b = 0.70f;
+        marker.color.a = 1.0;
+        marker.lifetime = ros::Duration();
+
+        marker.pose.position.x = map[i][j].getX();
+        marker.pose.position.y = map[i][j].getY();
+        marker.pose.position.z = 0;
+        marker.pose.orientation.w = 1.0;
+
+        markerCount++;
+        if (markerCount < markerLimit) {
+          markerArray.markers.push_back(marker);
+          //          std::cout << map[i][j].getX() << "," << map[i][j].getY() << std::endl;
+        }
+      }
+    }
+  }
+
+  allFrontierPub.publish(markerArray);
+  ROS_INFO("Total %d markers published.", markerCount);
 }
 
 
 void FrontierExplorer::explore() {
-  // TODO(harshkakashaniya) explore around for different frontier.
+  // Set loop frequency
+  ros::Rate loop_rate(1);
+  bool shouldRotate = true;
+  loop_rate.sleep();
+  ros::spinOnce();
+  while (ros::ok()) {
+    std::cout << "\n\n\n";
+    ROS_INFO_STREAM("#################################");
+
+    if (shouldRotate) {
+      //rotate360();
+      shouldRotate = false;
+      ROS_INFO("Finished rotating turtlebot");
     }
+
+    // Check frontiers
+    int count = getFrontiers();
+
+    // Visualize all frontiers
+    publishFrontierPoints(count);
+
+    // Spin once to check for callbacks
+    ros::spinOnce();
+
+    // Sleep for desired frequency
+    loop_rate.sleep();
+  }
+}
