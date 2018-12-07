@@ -38,8 +38,8 @@
  * FrontierExplorer class header declaration
  */
 
-  #ifndef INCLUDE_FRONTIEREXPLORER_HPP_
-  #define INCLUDE_FRONTIEREXPLORER_HPP_
+#ifndef INCLUDE_FRONTIEREXPLORER_HPP_
+#define INCLUDE_FRONTIEREXPLORER_HPP_
 
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
@@ -52,10 +52,6 @@
 #include "sensor_msgs/LaserScan.h"
 #include "geometry_msgs/Twist.h"
 #include "Map.hpp"
-
-// OpenCV headers
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 
 /**
  * @brief FrontierExploration Class

@@ -1,11 +1,8 @@
 <h1 align="center"> Prometheus - Frontier Exploration Package</h1>
-<p align="center">
-<a href="https://travis-ci.org/rohit517/prometheus_frontier_explorer">
-<img src="https://travis-ci.org/rohit517/prometheus_frontier_fxplorer.svg?branch=master">
-</a>
-<a href='https://coveralls.io/github/rohit517/prometheus_frontier_explorer?branch=master'><img src='https://coveralls.io/repos/github/rohit517/prometheus_frontier_explorer/badge.svg?branch=master' alt='Coverage Status' /></a>
-<a href='https://github.com/rohit517/prometheus_frontier_explorer/blob/master/LICENSE'><img src='https://img.shields.io/badge/License-BSD%203--Clause-blue.svg'/></a>
-</p>
+
+[![Build Status](https://travis-ci.org/rohit517/prometheus_frontier_explorer.svg?branch=master)](https://travis-ci.org/rohit517/prometheus_frontier_explorer)
+[![Coverage Status](https://coveralls.io/repos/github/rohit517/prometheus_frontier_explorer/badge.svg)](https://coveralls.io/github/rohit517/prometheus_frontier_explorer)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/rohit517/prometheus_frontier_explorer/blob/master/LICENSE)
 
 ## Overview
 
