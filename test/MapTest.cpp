@@ -33,7 +33,7 @@ TEST(MapTest, testGridToMap) {
   currcenter.y = 0;
   testMap.updateMap(5, 5, 1.0, currcenter, testGrid);
 
-  std::vector<std::vector<MapNode>>& map = testMap.getMap();
+  std::vector<std::vector<MapNode>> map = testMap.getMap();
   auto prob = map[1][2].getProbability();
   int8_t dummy = 100;
   ASSERT_EQ(prob, dummy);
