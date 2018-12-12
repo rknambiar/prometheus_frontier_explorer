@@ -51,6 +51,9 @@
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
 #include "geometry_msgs/Twist.h"
+#include <tf/transform_listener.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
 #include "Map.hpp"
 
 /**
@@ -132,6 +135,10 @@ class FrontierExplorer {
    */
   std::vector<std::pair<double, double>> getClusterCentroids();
 
+  int getNearestCluster(std::vector<std::pair<double, double>> centers);
+
+  void moveTurtle(std::vector<std::pair<double, double>> centers, int id);
+
   /**
    *  @brief Function to visualize all frontier points in Rviz
    *
@@ -186,6 +193,9 @@ class FrontierExplorer {
 
   // Structure to hold frontier clusters
   std::vector<std::vector<std::pair<int, int>>> frontierCluster;
+
+  // Listener for tf /map to /base_link
+  tf::TransformListener turtleFrameListener;
 };
 
 #endif  // INCLUDE_FRONTIEREXPLORER_HPP_

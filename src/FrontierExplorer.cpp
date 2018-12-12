@@ -242,6 +242,73 @@ std::vector<std::pair<double, double>> FrontierExplorer::getClusterCentroids() {
   return centroids;
 }
 
+int FrontierExplorer::getNearestCluster(
+    std::vector<std::pair<double, double>> centers) {
+  tf::StampedTransform transform;
+  turtleFrameListener.lookupTransform("/map", "/base_link", ros::Time(0),
+                                      transform);
+
+  double turtleX = transform.getOrigin().x();
+  double turtleY = transform.getOrigin().y();
+
+  ROS_INFO_STREAM("Current turtle location x:" << turtleX << ", y:" << turtleY);
+
+  // Index and distance to store the closest frontier
+  int closestFrontierIndex = -1;
+  double distance = -1;
+
+  // Loop through all the clusters
+  int loopIndex = 0;
+  for (auto center : centers) {
+    double currDistance = std::hypot(center.first - turtleX,
+                                     center.second - turtleY);
+    if (distance == -1 || (currDistance < distance && currDistance > 1.5)) {
+      distance = currDistance;
+      closestFrontierIndex = loopIndex;
+    }
+    loopIndex++;
+  }
+
+  ROS_INFO_STREAM("Found closest cluster at number: " << closestFrontierIndex);
+
+  return closestFrontierIndex;
+}
+
+void FrontierExplorer::moveTurtle(
+    std::vector<std::pair<double, double>> centers, int id) {
+  double goalPointX = centers[id].first;
+  double goalPointY = centers[id].second;
+
+  // Create move base goal with params
+  move_base_msgs::MoveBaseGoal goal;
+  goal.target_pose.header.frame_id = "map";
+  goal.target_pose.header.stamp = ros::Time::now();
+  goal.target_pose.pose.position.x = goalPointX;
+  goal.target_pose.pose.position.y = goalPointY;
+  goal.target_pose.pose.orientation.w = 1.0;
+
+  ROS_INFO_STREAM(
+      "Navigating to point x:" << goalPointX << ", y:" << goalPointY
+          << " on the map");
+
+  actionlib::SimpleActionClient < move_base_msgs::MoveBaseAction
+      > ac("move_base", true);
+
+  //wait for the action server to come up
+  while (!ac.waitForServer(ros::Duration(5.0))) {
+    ROS_INFO("Waiting for the move_base action server to come up");
+  }
+  ROS_INFO_STREAM("Move base action server online..");
+  ac.sendGoal(goal);
+  ac.waitForResult();
+
+  if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    ROS_INFO_STREAM("Cluster centroid reached.");
+  else
+    ROS_INFO_STREAM("Could not reach cluster centroid.");
+
+}
+
 void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
                                                 double>> centers) {
   visualization_msgs::MarkerArray clusterMarkerArray;
@@ -347,6 +414,7 @@ void FrontierExplorer::visualizeClusterFrontiers() {
             << colorCounter);
   }
 }
+
 void FrontierExplorer::publishFrontierPoints(int count) {
   //  ROS_INFO("Publishing frontier markers... ");
   int width = slamMap.getmapWidth();
