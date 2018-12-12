@@ -197,19 +197,19 @@ void FrontierExplorer::getClusters() {
   }
 
   // Right bruno algorithm
-  /*
-   for (int i = 0; i < height; i++) {
+
+  for (int i = 0; i < height; i++) {
    for (int j = 0; j < width; j++) {
-   if (!map[i][j].getisFrontier()) {
-   continue;
-   } else if (i - 1 >= 0 && j < width - 1
-   && map[i - 1][j + 1].getFrontierIndex() != -1) {
-   map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
-   clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      if (!map[i][j].getisFrontier()) {
+        continue;
+      } else if (i - 1 >= 0 && j < width - 1
+          && map[i - 1][j + 1].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      }
+    }
    }
-   }
-   }
-   */
+
 
   // Filtering out smaller clusters
   frontierCluster.clear();
@@ -310,7 +310,7 @@ void FrontierExplorer::moveTurtle(
 }
 
 void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
-                                                double>> centers) {
+                                                double>> centers, int id) {
   visualization_msgs::MarkerArray clusterMarkerArray;
   int clusterIndex = 0;
   for (auto center : centers) {
@@ -323,16 +323,29 @@ void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
 
     marker.action = visualization_msgs::Marker::ADD;
 
-    // Define the scale (meter scale)
-    marker.scale.x = 0.05;
-    marker.scale.y = 0.05;
-    marker.scale.z = 0.05;
+    if (clusterIndex == id) {
+      // Define the scale (meter scale)
+      marker.scale.x = 0.08;
+      marker.scale.y = 0.08;
+      marker.scale.z = 0.08;
 
-    // Set the color
-    marker.color.r = 0.0f;
-    marker.color.g = 1.0f;
-    marker.color.b = 0.0f;
-    marker.color.a = 0.8;
+      // Set the color
+      marker.color.r = 1.0f;
+      marker.color.g = 1.0f;
+      marker.color.b = 0.0f;
+      marker.color.a = 0.6;
+    } else {
+      // Define the scale (meter scale)
+      marker.scale.x = 0.05;
+      marker.scale.y = 0.05;
+      marker.scale.z = 0.05;
+
+      // Set the color
+      marker.color.r = 0.0f;
+      marker.color.g = 1.0f;
+      marker.color.b = 0.0f;
+      marker.color.a = 0.8;
+    }
     marker.lifetime = ros::Duration();
 
     marker.pose.position.x = center.first;
@@ -495,14 +508,20 @@ void FrontierExplorer::explore() {
     std::vector<std::pair<double, double>> clusterCenters =
         getClusterCentroids();
 
+    // Get nearest cluster index
+    int id = getNearestCluster(clusterCenters);
+
     // Visualize cluster centroids
-    visualizeClusterCenters(clusterCenters);
+    visualizeClusterCenters(clusterCenters, id);
 
     // Visualize cluster frontiers
     visualizeClusterFrontiers();
 
     // Visualize all frontiers
     publishFrontierPoints(count);
+
+    // Move to the cluster center
+    moveTurtle(clusterCenters, id);
 
     // Spin once to check for callbacks
     ros::spinOnce();

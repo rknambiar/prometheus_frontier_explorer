@@ -155,7 +155,8 @@ class FrontierExplorer {
    *
    *  @return void
    */
-  void visualizeClusterCenters(std::vector<std::pair<double, double>> centers);
+  void visualizeClusterCenters(std::vector<std::pair<double, double>> centers,
+                               int id);
 
   /**
    *  @brief Function to visualize frontiers segregated based on clusters in Rviz
