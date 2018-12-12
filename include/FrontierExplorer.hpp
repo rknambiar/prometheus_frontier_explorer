@@ -108,33 +108,6 @@ class FrontierExplorer {
    */
   void rotate360();
 
-  /**
-   *  @brief Function to get frontiers from occupancy grid message
-   *
-   *  @param none
-   *
-   *  @return int count of frontiers
-   */
-  int getFrontiers();
-
-  /**
-   *  @brief Function to make clusters from array of frontier location
-   *
-   *  @param none
-   *
-   *  @return void
-   */
-  void getClusters();
-
-  /**
-   *  @brief Function to calculate cluster centroids
-   *
-   *  @param none
-   *
-   *  @return std::vector<std::pair<double, double>> cluster centroid locations
-   */
-  std::vector<std::pair<double, double>> getClusterCentroids();
-
   int getNearestCluster(std::vector<std::pair<double, double>> centers);
 
   void moveTurtle(std::vector<std::pair<double, double>> centers, int id);
@@ -191,9 +164,6 @@ class FrontierExplorer {
 
   // Publisher to show frontier clusters
   ros::Publisher frontierClusterPub;
-
-  // Structure to hold frontier clusters
-  std::vector<std::vector<std::pair<int, int>>> frontierCluster;
 
   // Listener for tf /map to /base_link
   tf::TransformListener turtleFrameListener;

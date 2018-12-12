@@ -181,7 +181,7 @@ class Map {
    *
    *  @return std::vector<std::vector<MapNode>>& map
    */
-  std::vector<std::vector<MapNode>>& getMap();
+  const std::vector<std::vector<MapNode>>& getMap();
 
   /**
    *  @brief Function to update map parameters
@@ -210,6 +210,34 @@ class Map {
   void updateMap(int currentWidth, int currentHeight, double currentReso,
                  geometry_msgs::Point mapCenter,
                  const nav_msgs::OccupancyGrid::ConstPtr& msg);
+  /**
+   *  @brief Function to get frontiers from occupancy grid message
+   *
+   *  @param none
+   *
+   *  @return int count of frontiers
+   */
+  int getFrontiers();
+
+  /**
+   *  @brief Function to make clusters from array of frontier location
+   *
+   *  @param none
+   *
+   *  @return void
+   */
+  void getClusters();
+
+  /**
+   *  @brief Function to calculate cluster centroids
+   *
+   *  @param none
+   *
+   *  @return std::vector<std::pair<double, double>> cluster centroid locations
+   */
+  std::vector<std::pair<double, double>> getClusterCentroids();
+
+  const std::vector<std::vector<std::pair<int, int>>>& getFrontierCluster();
 
  private:
   // Map initialized flag
@@ -225,6 +253,9 @@ class Map {
 
   // Map origin
   geometry_msgs::Point origin;
+
+  // Structure to hold frontier clusters
+  std::vector<std::vector<std::pair<int, int>>> frontierCluster;
 };
 
 #endif  // INCLUDE_MAP_HPP_

@@ -121,127 +121,6 @@ void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
   slamMap.updateMap(currwidth, currheight, currreso, currcenter, gridMsg);
 }
 
-int FrontierExplorer::getFrontiers() {
-  int width = slamMap.getmapWidth();
-  int height = slamMap.getmapHeight();
-  int frontierCount = 0;
-  //  ROS_INFO("Getting frontiers..");
-  ROS_INFO("Getting frontiers for map with w:%d, h:%d", width, height);
-  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      if (map[i][j].getProbability() == 0) {
-
-        bool frontierFlag = false;
-        // Check if neighbor is unexplored node
-        for (int k = i - 1; k <= i + 1; k++) {
-          for (int l = j - 1; l <= j + 1; l++) {
-            if (k >= 0 && l >= 0 && k <= height && l <= width
-                && map[k][l].getProbability() == -1) {
-              // Set flag to true
-              frontierFlag = true;
-            }
-          }
-        }
-        // Update in the map
-        map[i][j].setisFrontier(frontierFlag);
-        if (frontierFlag) {
-          frontierCount++;
-        }
-      }
-      // We also set its frontier id to -1
-      map[i][j].setFrontierIndex(-1);
-    }
-  }
-
-  ROS_INFO("Updated frontier flag and index with frontier count:%d",
-           frontierCount);
-  return frontierCount;
-}
-
-void FrontierExplorer::getClusters() {
-  int width = slamMap.getmapWidth();
-  int height = slamMap.getmapHeight();
-
-  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
-
-  // Declare structure to store clusters
-  std::vector<std::vector<std::pair<int, int>>> clusters;
-
-  // Left half algorithm
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      if (!map[i][j].getisFrontier()) {
-        continue;
-      } else if (i - 1 >= 0 && j - 1 >= 0
-          && map[i - 1][j - 1].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i - 1][j - 1].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
-      } else if ((i - 1 >= 0 && j - 1 >= 0
-          && map[i - 1][j].getFrontierIndex() == -1
-          && map[i][j - 1].getFrontierIndex() == -1)
-          || (i - 1 < 0 && j - 1 >= 0 && map[i][j - 1].getFrontierIndex() == -1)
-          || (i - 1 >= 0 && j - 1 < 0 && map[i - 1][j].getFrontierIndex() == -1)) {
-        map[i][j].setFrontierIndex(clusters.size());
-        std::vector<std::pair<int, int>> coordinates;
-        coordinates.push_back(std::make_pair(i, j));
-        clusters.push_back(coordinates);
-      } else if (i - 1 >= 0 && map[i - 1][j].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i - 1][j].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
-      } else if (j - 1 >= 0 && map[i][j - 1].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i][j - 1].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
-      }
-    }
-  }
-
-  // Right bruno algorithm
-
-  for (int i = 0; i < height; i++) {
-   for (int j = 0; j < width; j++) {
-      if (!map[i][j].getisFrontier()) {
-        continue;
-      } else if (i - 1 >= 0 && j < width - 1
-          && map[i - 1][j + 1].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
-      }
-    }
-   }
-
-
-  // Filtering out smaller clusters
-  frontierCluster.clear();
-  for (auto row : clusters) {
-    if (row.size() > 20) {
-      frontierCluster.push_back(row);
-    }
-  }
-
-  ROS_INFO_STREAM("Number of clusters: " << frontierCluster.size());
-}
-
-std::vector<std::pair<double, double>> FrontierExplorer::getClusterCentroids() {
-  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
-  std::vector<std::pair<double, double>> centroids;
-  for (auto row : frontierCluster) {
-    int i = 0, j = 0;
-    double sumX = 0, sumY = 0;
-    for (auto point : row) {
-      i = point.first;
-      j = point.second;
-      sumX = sumX + map[i][j].getX();
-      sumY = sumY + map[i][j].getY();
-    }
-    sumX = sumX / row.size();
-    sumY = sumY / row.size();
-    std::cout << "Centroid x: " << sumX << ", y: " << sumY << std::endl;
-    centroids.push_back(std::make_pair(sumX, sumY));
-  }
-  return centroids;
-}
-
 int FrontierExplorer::getNearestCluster(
     std::vector<std::pair<double, double>> centers) {
   tf::StampedTransform transform;
@@ -362,7 +241,8 @@ void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
 }
 
 void FrontierExplorer::visualizeClusterFrontiers() {
-  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+  auto frontierCluster = slamMap.getFrontierCluster();
+  std::vector<std::vector<MapNode>> map = slamMap.getMap();
   // 8 different colors(r,g,b). Loop after we get there
   int colorSize = 8;
   std::vector<std::tuple<double, double, double>> colors;
@@ -433,7 +313,7 @@ void FrontierExplorer::publishFrontierPoints(int count) {
   int width = slamMap.getmapWidth();
   int height = slamMap.getmapHeight();
 
-  std::vector<std::vector<MapNode>>& map = slamMap.getMap();
+  std::vector<std::vector<MapNode>> map = slamMap.getMap();
 
   visualization_msgs::MarkerArray markerArray;
 
@@ -494,19 +374,20 @@ void FrontierExplorer::explore() {
     ROS_INFO_STREAM("#################################");
 
     if (shouldRotate) {
-      //rotate360();
+      rotate360();
       shouldRotate = false;
       ROS_INFO("Finished rotating turtlebot");
     }
 
     // Check frontiers
-    int count = getFrontiers();
+    int count = slamMap.getFrontiers();
 
-    getClusters();
+    slamMap.getClusters();
 
     // Get cluster centroids
     std::vector<std::pair<double, double>> clusterCenters =
-        getClusterCentroids();
+        slamMap
+        .getClusterCentroids();
 
     // Get nearest cluster index
     int id = getNearestCluster(clusterCenters);
