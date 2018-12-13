@@ -52,6 +52,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdint>
+#include <string>
 
 
 
@@ -226,7 +227,7 @@ class Map {
    *
    *  @return void
    */
-  void getClusters();
+  int getClusters(int threshold);
 
   /**
    *  @brief Function to calculate cluster centroids

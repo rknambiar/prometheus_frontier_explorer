@@ -44,6 +44,7 @@
  *  Map class implementation
  */
 #include "Map.hpp"
+#include <exception>
 
 Map::Map() {
   // Set Map parameters on object creation
@@ -198,40 +199,40 @@ void Map::updateMap(int currentWidth, int currentHeight, double currentReso,
 
 int Map::getFrontiers() {
   int frontierCount = 0;
-  //  ROS_INFO("Getting frontiers..");
+//  ROS_INFO_STREAM("Getting frontiers..");
   ROS_INFO("Getting frontiers for map with w:%d, h:%d", mapWidth, mapHeight);
-  for (int i = 0; i < mapHeight; i++) {
-    for (int j = 0; j < mapWidth; j++) {
-      if (map[i][j].getProbability() == 0) {
+    for (int i = 0; i < mapHeight; i++) {
+      for (int j = 0; j < mapWidth; j++) {
+        if (map[i][j].getProbability() == 0) {
 
-        bool frontierFlag = false;
-        // Check if neighbor is unexplored node
-        for (int k = i - 1; k <= i + 1; k++) {
-          for (int l = j - 1; l <= j + 1; l++) {
-            if (k >= 0 && l >= 0 && k <= mapHeight && l <= mapWidth
-                && map[k][l].getProbability() == -1) {
-              // Set flag to true
-              frontierFlag = true;
+          bool frontierFlag = false;
+          // Check if neighbor is unexplored node
+          for (int k = i - 1; k <= i + 1; k++) {
+            for (int l = j - 1; l <= j + 1; l++) {
+            if (k >= 0 && l >= 0 && k < mapHeight && l < mapWidth
+                  && map[k][l].getProbability() == -1) {
+                // Set flag to true
+                frontierFlag = true;
+              }
             }
           }
-        }
-        // Update in the map
-        map[i][j].setisFrontier(frontierFlag);
-        if (frontierFlag) {
-          frontierCount++;
+          // Update in the map
+          map[i][j].setisFrontier(frontierFlag);
+          if (frontierFlag) {
+            frontierCount++;
+            }
+          }
+        // We also set its frontier id to -1
+        map[i][j].setFrontierIndex(-1);
         }
       }
-      // We also set its frontier id to -1
-      map[i][j].setFrontierIndex(-1);
-    }
-  }
 
   ROS_INFO("Updated frontier flag and index with frontier count:%d",
            frontierCount);
   return frontierCount;
 }
 
-void Map::getClusters() {
+int Map::getClusters(int threshold) {
   // Declare structure to store clusters
   std::vector < std::vector<std::pair<int, int>> > clusters;
 
@@ -244,6 +245,16 @@ void Map::getClusters() {
           && map[i - 1][j - 1].getFrontierIndex() != -1) {
         map[i][j].setFrontierIndex(map[i - 1][j - 1].getFrontierIndex());
         clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      } else if (i - 1 >= 0 && map[i - 1][j].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i - 1][j].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      } else if (j - 1 >= 0 && map[i][j - 1].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i][j - 1].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+      } else if (i - 1 >= 0 && j < mapWidth - 1
+          && map[i - 1][j + 1].getFrontierIndex() != -1) {
+        map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
+        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
       } else if ((i - 1 >= 0 && j - 1 >= 0
           && map[i - 1][j].getFrontierIndex() == -1
           && map[i][j - 1].getFrontierIndex() == -1)
@@ -253,39 +264,34 @@ void Map::getClusters() {
         std::vector<std::pair<int, int>> coordinates;
         coordinates.push_back(std::make_pair(i, j));
         clusters.push_back(coordinates);
-      } else if (i - 1 >= 0 && map[i - 1][j].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i - 1][j].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
-      } else if (j - 1 >= 0 && map[i][j - 1].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i][j - 1].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
       }
     }
   }
 
   // Right bruno algorithm
 
-  for (int i = 0; i < mapHeight; i++) {
-    for (int j = 0; j < mapWidth; j++) {
-      if (!map[i][j].getisFrontier()) {
-        continue;
-      } else if (i - 1 >= 0 && j < mapWidth - 1
-          && map[i - 1][j + 1].getFrontierIndex() != -1) {
-        map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
-        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
-      }
-    }
-  }
+//  for (int i = 0; i < mapHeight; i++) {
+//    for (int j = 0; j < mapWidth; j++) {
+//      if (!map[i][j].getisFrontier()) {
+//        continue;
+//      } else if (i - 1 >= 0 && j < mapWidth - 1
+//          && map[i - 1][j + 1].getFrontierIndex() != -1) {
+//        map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
+//        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+//      }
+//    }
+//  }
 
   // Filtering out smaller clusters
   frontierCluster.clear();
   for (auto row : clusters) {
-    if (row.size() > 20) {
+    if (row.size() > threshold) {
       frontierCluster.push_back(row);
     }
   }
 
   ROS_INFO_STREAM("Number of clusters: " << frontierCluster.size());
+  return frontierCluster.size();
 }
 
 std::vector<std::pair<double, double>> Map::getClusterCentroids() {
@@ -298,6 +304,8 @@ std::vector<std::pair<double, double>> Map::getClusterCentroids() {
       j = point.second;
       sumX = sumX + map[i][j].getX();
       sumY = sumY + map[i][j].getY();
+//      std::cout << i << " " << j << " " << map[i][j].getX() << " "
+//                << map[i][j].getY() << std::endl;
     }
     sumX = sumX / row.size();
     sumY = sumY / row.size();
