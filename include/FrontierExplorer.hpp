@@ -110,6 +110,8 @@ class FrontierExplorer {
 
   int getNearestCluster(std::vector<std::pair<double, double>> centers);
 
+  bool checkReachAvoid(std::pair<double, double> goalPoint);
+
   void moveTurtle(std::vector<std::pair<double, double>> centers, int id);
 
   /**
@@ -140,6 +142,8 @@ class FrontierExplorer {
    */
   void visualizeClusterFrontiers();
 
+  void visualizeReachAvoid();
+
  private:
   // ROS node handle
   ros::NodeHandle nh;
@@ -165,8 +169,15 @@ class FrontierExplorer {
   // Publisher to show frontier clusters
   ros::Publisher frontierClusterPub;
 
+  // Publisher to show reach avoid regions
+  ros::Publisher reachAvoidPub;
+
+
   // Listener for tf /map to /base_link
   tf::TransformListener turtleFrameListener;
+
+  // Centroids to avoid
+  std::vector<std::pair<double, double>> reachAvoid;
 };
 
 #endif  // INCLUDE_FRONTIEREXPLORER_HPP_

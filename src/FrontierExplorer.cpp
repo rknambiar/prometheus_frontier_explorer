@@ -71,6 +71,9 @@ FrontierExplorer::FrontierExplorer() {
   frontierClusterPub = nh.advertise < visualization_msgs::MarkerArray
       > ("/frontier_clustor_array", 1);
 
+  reachAvoidPub = nh.advertise < visualization_msgs::MarkerArray
+      > ("/reach_avoid_region", 1);
+
   ROS_INFO("New frontier exploration turtle bot created.");
 }
 
@@ -93,9 +96,9 @@ void FrontierExplorer::rotate360() {
   velMsg.linear.z = 0.0;
   velMsg.angular.x = 0.0;
   velMsg.angular.y = 0.0;
-  velMsg.angular.z = 0.8;
+  velMsg.angular.z = 0.5;
   ros::Time begin = ros::Time::now();
-  ros::Duration waitTime = ros::Duration(7.5);
+  ros::Duration waitTime = ros::Duration(14);
   ros::Time end = begin + waitTime;
   std::cout << "[ Start time:]" << begin << std::endl;
   while (ros::Time::now() < end && ros::ok()) {
@@ -141,7 +144,8 @@ int FrontierExplorer::getNearestCluster(
   for (auto center : centers) {
     double currDistance = std::hypot(center.first - turtleX,
                                      center.second - turtleY);
-    if (distance == -1 || (currDistance < distance && currDistance > 1.5)) {
+    if ((distance == -1 || (currDistance < distance && currDistance > 1.5))
+        && checkReachAvoid(center)) {
       distance = currDistance;
       closestFrontierIndex = loopIndex;
     }
@@ -151,6 +155,24 @@ int FrontierExplorer::getNearestCluster(
   ROS_INFO_STREAM("Found closest cluster at number: " << closestFrontierIndex);
 
   return closestFrontierIndex;
+}
+
+bool FrontierExplorer::checkReachAvoid(std::pair<double, double> goalPoint) {
+  double x = goalPoint.first;
+  double y = goalPoint.second;
+
+  for (auto row : reachAvoid) {
+    double currDistance = std::hypot(row.first - x, row.second - y);
+    if (currDistance < 1) {
+      ROS_INFO_STREAM(
+          "Found a point close by that should not be visited. Skipping this point..");
+      // False means we can not go to that point as it has been added in
+      // reach-avoid list
+      return false;
+    }
+  }
+  // True means we can go to that point as it has not been added in reach-avoid
+  return true;
 }
 
 void FrontierExplorer::moveTurtle(
@@ -175,7 +197,7 @@ void FrontierExplorer::moveTurtle(
 
   //wait for the action server to come up
   while (!ac.waitForServer(ros::Duration(5.0))) {
-    ROS_INFO("Waiting for the move_base action server to come up");
+    ROS_INFO_STREAM("Waiting for the move_base action server to come up");
   }
   ROS_INFO_STREAM("Move base action server online..");
   ac.sendGoal(goal);
@@ -184,7 +206,9 @@ void FrontierExplorer::moveTurtle(
   if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     ROS_INFO_STREAM("Cluster centroid reached.");
   else
-    ROS_INFO_STREAM("Could not reach cluster centroid.");
+    ROS_INFO_STREAM(
+        "Could not reach cluster centroid. Adding it into regions not to visit again..");
+  reachAvoid.push_back(centers[id]);
 
 }
 
@@ -362,6 +386,44 @@ void FrontierExplorer::publishFrontierPoints(int count) {
   ROS_INFO("Total %d markers published.", markerCount);
 }
 
+void FrontierExplorer::visualizeReachAvoid() {
+  visualization_msgs::MarkerArray clusterMarkerArray;
+  int clusterIndex = 0;
+  for (auto center : reachAvoid) {
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = "/map";
+    marker.header.stamp = ros::Time();
+    marker.ns = "reach_avoid";
+    marker.id = clusterIndex;
+    marker.type = visualization_msgs::Marker::CUBE;
+
+    marker.action = visualization_msgs::Marker::ADD;
+
+    // Define the scale (meter scale)
+    marker.scale.x = 1.00;
+    marker.scale.y = 1.00;
+    marker.scale.z = 0.01;
+
+    // Set the color
+    marker.color.r = 1.0f;
+    marker.color.g = 0.5f;
+    marker.color.b = 0.5f;
+    marker.color.a = 0.5;
+    marker.lifetime = ros::Duration();
+
+    marker.pose.position.x = center.first;
+    marker.pose.position.y = center.second;
+    marker.pose.position.z = 0;
+    marker.pose.orientation.w = 1.0;
+
+    clusterIndex++;
+    clusterMarkerArray.markers.push_back(marker);
+  }
+
+  reachAvoidPub.publish(clusterMarkerArray);
+  ROS_INFO("Total %d markers published in reach avoid.", clusterIndex);
+}
+
 
 void FrontierExplorer::explore() {
   // Set loop frequency
@@ -369,6 +431,8 @@ void FrontierExplorer::explore() {
   bool shouldRotate = true;
   loop_rate.sleep();
   ros::spinOnce();
+  ROS_INFO_STREAM("Starting prometheus frontier exploration in 5 seconds...");
+  ros::Duration(5).sleep();
   while (ros::ok()) {
     std::cout << "\n\n\n";
     ROS_INFO_STREAM("#################################");
@@ -392,6 +456,11 @@ void FrontierExplorer::explore() {
     // Get nearest cluster index
     int id = getNearestCluster(clusterCenters);
 
+    if (id == -1) {
+      ROS_INFO_STREAM("Could not find any more frontiers..");
+      break;
+    }
+
     // Visualize cluster centroids
     visualizeClusterCenters(clusterCenters, id);
 
@@ -400,6 +469,9 @@ void FrontierExplorer::explore() {
 
     // Visualize all frontiers
     publishFrontierPoints(count);
+
+    // Visualize reach avoid
+    visualizeReachAvoid();
 
     // Move to the cluster center
     moveTurtle(clusterCenters, id);
@@ -410,4 +482,6 @@ void FrontierExplorer::explore() {
     // Sleep for desired frequency
     loop_rate.sleep();
   }
+
+  std::cout << "Finished exploring the map. Exiting.." << std::endl;
 }
