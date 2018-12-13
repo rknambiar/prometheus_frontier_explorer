@@ -25,13 +25,6 @@ class MapNodeTest : public ::testing::Test {
     prob = 5;
     frontierFlag = true;
     frontierIndex = 6;
-
-    // Set parameters of node
-    testNodeSet.setX(x);
-    testNodeSet.setY(y);
-    testNodeSet.setProbability(prob);
-    testNodeSet.setisFrontier(frontierFlag);
-    testNodeSet.setFrontierIndex(frontierIndex);
   }
 
   /**
@@ -46,23 +39,27 @@ class MapNodeTest : public ::testing::Test {
 };
 
 TEST_F(MapNodeTest, testSetX) {
+  testNodeSet.setX(x);
   ASSERT_EQ(testNodeSet.getX(), x);
 }
 
 TEST_F(MapNodeTest, testSetY) {
-  ;
+  testNodeSet.setY(y);
   ASSERT_EQ(testNodeSet.getY(), y);
 }
 
 TEST_F(MapNodeTest, testSetProbability) {
+  testNodeSet.setProbability(prob);
   ASSERT_EQ(testNodeSet.getProbability(), prob);
 }
 
 TEST_F(MapNodeTest, testSetIsFrontier) {
+  testNodeSet.setisFrontier(frontierFlag);
   ASSERT_EQ(testNodeSet.getisFrontier(), frontierFlag);
 }
 
 TEST_F(MapNodeTest, testSetFrontierIndex) {
+  testNodeSet.setFrontierIndex(frontierIndex);
   ASSERT_EQ(testNodeSet.getFrontierIndex(), frontierIndex);
 }
 
