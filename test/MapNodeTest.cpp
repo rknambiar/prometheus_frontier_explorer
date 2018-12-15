@@ -31,7 +31,7 @@
  */
 
 /**
- *  @file    FrontierExplorerTest.cpp
+ *  @file    MapNodeTest.cpp
  *  @author  Harsh Kakashaniya and Rohitkrishna Nambiar
  *  @date    12/04/2018
  *  @version 1.0
@@ -41,11 +41,16 @@
  *
  *  @section DESCRIPTION
  *
- *  Map class implementation
+ *  Test implementation for Mapnode class
  */
 #include <gtest/gtest.h>
 #include "MapNode.hpp"
 
+/**
+ * @brief MapNodeTest Class
+ *
+ * Test framework class for MapNodeTest.
+ */
 class MapNodeTest : public ::testing::Test {
  public:
   // MapNode objects
@@ -83,47 +88,117 @@ class MapNodeTest : public ::testing::Test {
   }
 };
 
+/**
+ *@brief Test set node x method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testSetX) {
   testNodeSet.setX(x);
   ASSERT_EQ(testNodeSet.getX(), x);
 }
 
+/**
+ *@brief Test set node y method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testSetY) {
   testNodeSet.setY(y);
   ASSERT_EQ(testNodeSet.getY(), y);
 }
 
+/**
+ *@brief Test set node probability method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testSetProbability) {
   testNodeSet.setProbability(prob);
   ASSERT_EQ(testNodeSet.getProbability(), prob);
 }
 
+/**
+ *@brief Test set node is frontier method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testSetIsFrontier) {
   testNodeSet.setisFrontier(frontierFlag);
   ASSERT_EQ(testNodeSet.getisFrontier(), frontierFlag);
 }
 
+/**
+ *@brief Test set node frontierIndex method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testSetFrontierIndex) {
   testNodeSet.setFrontierIndex(frontierIndex);
   ASSERT_EQ(testNodeSet.getFrontierIndex(), frontierIndex);
 }
 
+/**
+ *@brief Test get node x method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testGetX) {
   ASSERT_EQ(testNodeGet.getX(), -1);
 }
 
+/**
+ *@brief Test get node y method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testGetY) {
   ASSERT_EQ(testNodeGet.getY(), -1);
 }
 
+/**
+ *@brief Test get node probability method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testGetProbability) {
   ASSERT_EQ(testNodeGet.getProbability(), -1);
 }
 
+/**
+ *@brief Test get node is frontier method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testGetIsFrontier) {
   ASSERT_EQ(testNodeGet.getisFrontier(), false);
 }
 
+/**
+ *@brief Test get node frontier index method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapNodeTest, testGetFrontierIndex) {
   ASSERT_EQ(testNodeGet.getFrontierIndex(), -1);
 }

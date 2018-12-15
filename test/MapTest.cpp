@@ -31,7 +31,7 @@
  */
 
 /**
- *  @file    FrontierExplorerTest.cpp
+ *  @file    MapTest.cpp
  *  @author  Harsh Kakashaniya and Rohitkrishna Nambiar
  *  @date    12/04/2018
  *  @version 1.0
@@ -41,7 +41,7 @@
  *
  *  @section DESCRIPTION
  *
- *  Map class implementation
+ *  Test implementation for Map class
  */
 
 #include <gtest/gtest.h>
@@ -52,8 +52,11 @@
 #include "FrontierExplorer.hpp"
 #include <boost/shared_ptr.hpp>
 
-
-
+/**
+ * @brief MapTest Class
+ *
+ * Test framework class for MapTest.
+ */
 class MapTest : public ::testing::Test {
  public:
   // Map objects
@@ -123,6 +126,13 @@ class MapTest : public ::testing::Test {
   }
 };
 
+/**
+ *@brief Test method to check callback and update map methods
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGridToMap) {
   std::vector<std::vector<MapNode>> map = testMap.getMap();
   auto prob = map[1][2].getProbability();
@@ -130,20 +140,38 @@ TEST_F(MapTest, testGridToMap) {
   ASSERT_EQ(prob, testVal);
 }
 
-
+/**
+ *@brief Test method to get frontiers from a dummy occupancy grid
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetFrontiers) {
   int count = testMap.getFrontiers();
   ASSERT_EQ(count, 12);
 }
 
-
+/**
+ *@brief Test method to get clusters from a dummy occupancy grid
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetClusters) {
   int count = testMap.getFrontiers();
   int clusters = testMap.getClusters(1);
   ASSERT_EQ(clusters, 2);
 }
 
-
+/**
+ *@brief Test method to get cluster centroids from a dummy grid
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetClusterCentroids) {
   int count = testMap.getFrontiers();
   int clusters = testMap.getClusters(1);
@@ -156,27 +184,61 @@ TEST_F(MapTest, testGetClusterCentroids) {
   ASSERT_NEAR(centroid[1].second, 2.5, 0.1);
 }
 
-
+/**
+ *@brief Test set map flag method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testSetMapSet) {
   setTestMap.setMapSet(mapFlag);
   ASSERT_EQ(setTestMap.getMapSet(), mapFlag);
 }
 
+/**
+ *@brief Test set map height method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testSetMapHeight) {
   setTestMap.setmapHeight(heightTest);
   ASSERT_EQ(setTestMap.getmapHeight(), heightTest);
 }
 
+/**
+ *@brief Test set map width method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testSetMapWidth) {
   setTestMap.setmapWidth(widthTest);
   ASSERT_EQ(setTestMap.getmapWidth(), widthTest);
 }
 
+/**
+ *@brief Test set map resolution method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testSetMapReso) {
   setTestMap.setmapReso(resoTest);
   ASSERT_EQ(setTestMap.getmapReso(), resoTest);
 }
 
+/**
+ *@brief Test set map origin method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testSetOrigin) {
   setTestMap.setOrigin(currcentertest);
   geometry_msgs::Point centerOut = setTestMap.getOrigin();
@@ -184,22 +246,57 @@ TEST_F(MapTest, testSetOrigin) {
   ASSERT_EQ(centerOut.y, 0.0);
 }
 
+/**
+ *@brief Test get map flag method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetMapSet) {
   ASSERT_EQ(getTestMap.getMapSet(), false);
 }
 
+/**
+ *@brief Test get map height method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetMapHeight) {
   ASSERT_EQ(getTestMap.getmapHeight(), 0);
 }
 
+/**
+ *@brief Test get map width method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetMapWidth) {
   ASSERT_EQ(getTestMap.getmapWidth(), 0);
 }
 
+/**
+ *@brief Test get map resolution method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetMapReso) {
   ASSERT_NEAR(getTestMap.getmapReso(), 0.05, 0.1);
 }
 
+/**
+ *@brief Test get map origin method
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(MapTest, testGetOrigin) {
   geometry_msgs::Point centerOut = setTestMap.getOrigin();
   ASSERT_EQ(centerOut.x, 0.0);

@@ -37,11 +37,11 @@
  *  @version 1.0
  *  @copyright BSD 3-Clause
  *
- *  @brief main file for Tests
+ *  @brief Main file for Tests
  *
  *  @section DESCRIPTION
  *
- *  Map class implementation
+ *  Main.cpp file for running prometheus tests.
  */
 #include <gtest/gtest.h>
 #include <ros/ros.h>
@@ -50,6 +50,7 @@ int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "prometheus");
 
+  // Set ros logger level for debug logs
   if (ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME,
                                      ros::console::levels::Debug))
     ros::console::notifyLoggerLevelsChanged();
