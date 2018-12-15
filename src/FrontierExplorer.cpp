@@ -446,7 +446,7 @@ void FrontierExplorer::explore() {
     // Check frontiers
     int count = slamMap.getFrontiers();
 
-    slamMap.getClusters();
+    slamMap.getClusters(20);
 
     // Get cluster centroids
     std::vector<std::pair<double, double>> clusterCenters =
