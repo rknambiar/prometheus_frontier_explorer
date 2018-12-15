@@ -216,8 +216,10 @@ if(CATKIN_ENABLE_TESTING)
   prometheusTests
   test/prometheusTests.launch
   test/main.cpp
+  test/FrontierExplorerTest.cpp
   test/MapNodeTest.cpp
   test/MapTest.cpp
+  src/FrontierExplorer.cpp
   src/MapNode.cpp
   src/Map.cpp
   )
