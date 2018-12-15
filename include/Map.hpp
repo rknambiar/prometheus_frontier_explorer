@@ -48,15 +48,11 @@
   #define INCLUDE_MAP_HPP_
 
 #include <nav_msgs/OccupancyGrid.h>
-// C++ headers
 #include <iostream>
 #include <vector>
 #include <cstdint>
 #include <string>
 #include <utility>
-
-
-// ROS headers
 #include "ros/ros.h"
 #include "MapNode.hpp"
 
@@ -223,9 +219,9 @@ class Map {
   /**
    *  @brief Function to make clusters from array of frontier location
    *
-   *  @param none
+   *  @param int threshold of frontiers to form cluster
    *
-   *  @return void
+   *  @return int number of clusters
    */
   int getClusters(int threshold);
 
@@ -238,6 +234,13 @@ class Map {
    */
   std::vector<std::pair<double, double>> getClusterCentroids();
 
+  /**
+   *  @brief Function to get cluster frontiers
+   *
+   *  @param none
+   *
+   *  @return std::vector<std::vector<std::pair<int, int>>> cluster frontiers
+   */
   const std::vector<std::vector<std::pair<int, int>>>& getFrontierCluster();
 
  private:

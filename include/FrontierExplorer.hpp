@@ -35,7 +35,7 @@
  *
  *  @section DESCRIPTION
  *
- * FrontierExplorer class header declaration
+ *  FrontierExplorer class header declaration
  */
 
 #ifndef INCLUDE_FRONTIEREXPLORER_HPP_
@@ -46,11 +46,9 @@
 #include <tf/transform_listener.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
-// C++ header files
 #include <iostream>
 #include <utility>
 #include <vector>
-// ROS header files
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
 #include "geometry_msgs/Twist.h"
@@ -108,10 +106,32 @@ class FrontierExplorer {
    */
   void rotate360();
 
+  /**
+   *  @brief Function to get nearest cluster
+   *
+   *  @param std::vector<std::pair<double, double>> centers of clusters
+   *
+   *  @return int nearestCluster index
+   */
   int getNearestCluster(std::vector<std::pair<double, double>> centers);
 
+  /**
+   *  @brief Function to check if point is to be visited
+   *
+   *  @param std::pair<double, double> goal x and y coordinate
+   *
+   *  @return bool status of point if needed to be visited
+   */
   bool checkReachAvoid(std::pair<double, double> goalPoint);
 
+  /**
+   *  @brief Function to navigate the turtlebot to cluster
+   *
+   *  @param std::vector<std::pair<double, double>> centers of clusters
+   *  @param int id of cluster to navigate
+   *
+   *  @return void
+   */
   void moveTurtle(std::vector<std::pair<double, double>> centers, int id);
 
   /**
@@ -127,6 +147,7 @@ class FrontierExplorer {
    *  @brief Function to visualize all cluster centers in Rviz
    *
    *  @param std::vector<std::pair<double, double>> center locations
+   *  @param int id of nearest cluster to visit
    *
    *  @return void
    */
@@ -142,6 +163,13 @@ class FrontierExplorer {
    */
   void visualizeClusterFrontiers();
 
+  /**
+   *  @brief Function to visualize reach avoid regions in Rviz
+   *
+   *  @param none
+   *
+   *  @return void
+   */
   void visualizeReachAvoid();
 
  private:
@@ -171,7 +199,6 @@ class FrontierExplorer {
 
   // Publisher to show reach avoid regions
   ros::Publisher reachAvoidPub;
-
 
   // Listener for tf /map to /base_link
   tf::TransformListener turtleFrameListener;

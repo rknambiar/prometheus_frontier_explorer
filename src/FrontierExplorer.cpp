@@ -25,21 +25,31 @@
  */
 
 /**
- *  @file    main.cpp
+ *  @file    FrontierExplorer.cpp
  *  @author  Harsh Kakashaniya and Rohitkrishna Nambiar
  *  @date    12/04/2018
  *  @version 1.0
  *  @copyright BSD 3-Clause
  *
- *  @brief main file for running prometheus_frontier_exploration package
+ *  @brief FrontierExplorer class
  *
  *  @section DESCRIPTION
  *
- *  Main file for prometheus_frontier_exploration package. This calls
- *  the FrontierExplorer class method to explore the environment.
+ *  FrontierExplorer class implementation
  */
 
 #include "FrontierExplorer.hpp"
+#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/MarkerArray.h>
+#include <tf/transform_listener.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
+#include <iostream>
+#include <utility>
+#include <vector>
+#include "ros/ros.h"
+#include "sensor_msgs/LaserScan.h"
+#include "geometry_msgs/Twist.h"
 
 FrontierExplorer::FrontierExplorer() {
   // Initialize publisher topic
@@ -108,7 +118,7 @@ void FrontierExplorer::rotate360() {
     // Publish the velocity
     velPub.publish(velMsg);
   }
-  std::cout << "[ End time:]" << ros::Time::now() << std::endl;
+  ROS_INFO_STREAM("[ End time:]" << ros::Time::now());
 }
 
 void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
@@ -119,10 +129,10 @@ void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
   int currheight = gridMsg->info.height;  // y
   double currreso = gridMsg->info.resolution;
   geometry_msgs::Point currcenter = gridMsg->info.origin.position;
-  std::cout << "[MAP INFO] Width: " << currwidth << ", Height: " << currheight
-            << ", Resolution: " << currreso;
-  std::cout << ", Origin: " << gridMsg->info.origin.position.x << ","
-      << gridMsg->info.origin.position.y << std::endl;
+  ROS_INFO_STREAM("[MAP INFO] Width: " << currwidth << ", Height: " << currheight
+          << ", Resolution: " << currreso << ", Origin: "
+          << gridMsg->info.origin.position.x << ","
+          << gridMsg->info.origin.position.y);
 
   slamMap.updateMap(currwidth, currheight, currreso, currcenter, gridMsg);
 }
@@ -380,7 +390,6 @@ void FrontierExplorer::publishFrontierPoints(int count) {
         markerCount++;
         if (markerCount < markerLimit) {
           markerArray.markers.push_back(marker);
-      // std::cout << map[i][j].getX() << "," << map[i][j].getY() << std::endl;
         }
       }
     }
@@ -428,7 +437,6 @@ void FrontierExplorer::visualizeReachAvoid() {
   ROS_INFO("Total %d markers published in reach avoid.", clusterIndex);
 }
 
-
 void FrontierExplorer::explore() {
   // Set loop frequency
   ros::Rate loop_rate(1);
@@ -438,7 +446,7 @@ void FrontierExplorer::explore() {
   ROS_INFO_STREAM("Starting prometheus frontier exploration in 5 seconds...");
   ros::Duration(5).sleep();
   while (ros::ok()) {
-    std::cout << "\n\n\n";
+//    ROS_INFO_STREAM("\n\n\n");
     ROS_INFO_STREAM("#################################");
 
     if (shouldRotate) {
@@ -487,5 +495,5 @@ void FrontierExplorer::explore() {
     loop_rate.sleep();
   }
 
-  std::cout << "Finished exploring the map. Exiting.." << std::endl;
+  ROS_INFO_STREAM("Finished exploring the map. Exiting..");
 }

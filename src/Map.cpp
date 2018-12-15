@@ -44,7 +44,12 @@
  *  Map class implementation
  */
 #include "Map.hpp"
-#include <exception>
+#include <nav_msgs/OccupancyGrid.h>
+#include <iostream>
+#include <vector>
+#include <cstdint>
+#include <string>
+#include <utility>
 
 Map::Map() {
   // Set Map parameters on object creation
@@ -101,8 +106,6 @@ geometry_msgs::Point Map::getOrigin() {
 }
 
 const std::vector<std::vector<MapNode>>& Map::getMap() {
-  //  std::cout << "Map sent with width: " << map.size() << ", Height: "
-  //            << map[0].size() << std::endl;
   return map;
 }
 
@@ -306,12 +309,10 @@ std::vector<std::pair<double, double>> Map::getClusterCentroids() {
       j = point.second;
       sumX = sumX + map[i][j].getX();
       sumY = sumY + map[i][j].getY();
-//      std::cout << i << " " << j << " " << map[i][j].getX() << " "
-//                << map[i][j].getY() << std::endl;
     }
     sumX = sumX / row.size();
     sumY = sumY / row.size();
-    std::cout << "Centroid x: " << sumX << ", y: " << sumY << std::endl;
+    ROS_INFO_STREAM("Centroid x: " << sumX << ", y: " << sumY);
     centroids.push_back(std::make_pair(sumX, sumY));
   }
   return centroids;

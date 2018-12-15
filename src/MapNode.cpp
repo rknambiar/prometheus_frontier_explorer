@@ -25,21 +25,20 @@
  */
 
 /**
- *  @file    main.cpp
+ *  @file    MapNode.cpp
  *  @author  Harsh Kakashaniya and Rohitkrishna Nambiar
  *  @date    12/04/2018
  *  @version 1.0
  *  @copyright BSD 3-Clause
  *
- *  @brief main file for running prometheus_frontier_exploration package
+ *  @brief MapNode class implementation file
  *
  *  @section DESCRIPTION
  *
- *  Mapnode file for prometheus_frontier_exploration package. this is
- *  responsible for
- }
+ *  Mapnode class implementation file for prometheus_frontier_exploration package.
  */
-#include <MapNode.hpp>
+#include "MapNode.hpp"
+#include <cstdint>
 
 MapNode::MapNode() {
   // Set default values for nodes
