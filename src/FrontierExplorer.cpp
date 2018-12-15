@@ -62,12 +62,15 @@ FrontierExplorer::FrontierExplorer() {
   velPub.publish(velMsg);
 
   // Visualization markers for frontier and centroids
+  // Frontiers segmented based on clusters
   frontierMarkerPub = nh.advertise < visualization_msgs::MarkerArray
       > ("/frontier_marker_array", 1);
 
+  // Publish all frontiers
   allFrontierPub = nh.advertise < visualization_msgs::MarkerArray
       > ("/all_frontier_marker_array", 1);
 
+  // Only clusters
   frontierClusterPub = nh.advertise < visualization_msgs::MarkerArray
       > ("/frontier_clustor_array", 1);
 
