@@ -1,0 +1,359 @@
+\hypertarget{MapTest_8cpp}{}\section{/home/hbk/\+Desktop/\+Software\+Development/\+Final\+Project/rosworld/src/prometheus\+\_\+frontier\+\_\+explorer/test/\+Map\+Test.cpp File Reference}
+\label{MapTest_8cpp}\index{/home/hbk/\+Desktop/\+Software\+Development/\+Final\+Project/rosworld/src/prometheus\+\_\+frontier\+\_\+explorer/test/\+Map\+Test.\+cpp@{/home/hbk/\+Desktop/\+Software\+Development/\+Final\+Project/rosworld/src/prometheus\+\_\+frontier\+\_\+explorer/test/\+Map\+Test.\+cpp}}
+
+
+Test for \hyperlink{classMap}{Map} class file.  
+
+
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Occupancy\+Grid.\+h$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Header.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nav\+\_\+msgs/\+Map\+Meta\+Data.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Frontier\+Explorer.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$boost/shared\+\_\+ptr.\+hpp$>$}\\*
+Include dependency graph for Map\+Test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MapTest_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classMapTest}{Map\+Test}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapTest}{Map\+Test} Class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{MapTest_8cpp_a48516cf53985515c4dcd000280212d03}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Grid\+To\+Map)
+\begin{DoxyCompactList}\small\item\em Test method to check callback and update map methods. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_afde83efe218e988bfd62290baa2ecd87}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Frontiers)
+\begin{DoxyCompactList}\small\item\em Test method to get frontiers from a dummy occupancy grid. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a82f1b521533be0ebfd5f64e1d72933e3}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Clusters)
+\begin{DoxyCompactList}\small\item\em Test method to get clusters from a dummy occupancy grid. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a8127893a11d83ad34bc636f05218a1aa}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Cluster\+Centroids)
+\begin{DoxyCompactList}\small\item\em Test method to get cluster centroids from a dummy grid. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a771e654137ec9f9e0cf480c3ae885c8e}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Set\+Map\+Set)
+\begin{DoxyCompactList}\small\item\em Test set map flag method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a5b0441d2f357d25be80ac599c7d0a045}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Set\+Map\+Height)
+\begin{DoxyCompactList}\small\item\em Test set map height method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a23fd04d04e553db3fc07550960aef979}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Set\+Map\+Width)
+\begin{DoxyCompactList}\small\item\em Test set map width method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a24e9ae1b1b2a4a6ea5e078631e3e0710}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Set\+Map\+Reso)
+\begin{DoxyCompactList}\small\item\em Test set map resolution method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_afd738ab9a76fb25362fe5a408740b4b4}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Set\+Origin)
+\begin{DoxyCompactList}\small\item\em Test set map origin method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_ab5f7d7d6e85445caf3e9d5e6fe6224dc}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Map\+Set)
+\begin{DoxyCompactList}\small\item\em Test get map flag method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a1cdee4ee5f9229d6779b70bc4c483207}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Map\+Height)
+\begin{DoxyCompactList}\small\item\em Test get map height method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a336ba319cdc8be4892ec713a70866db2}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Map\+Width)
+\begin{DoxyCompactList}\small\item\em Test get map width method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_a62be965611c07d197bf712b43312b0ba}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Map\+Reso)
+\begin{DoxyCompactList}\small\item\em Test get map resolution method. \end{DoxyCompactList}\item 
+\hyperlink{MapTest_8cpp_ac4a90c6c66f3fc25fdcca6ccf15c8a94}{T\+E\+S\+T\+\_\+F} (\hyperlink{classMapTest}{Map\+Test}, test\+Get\+Origin)
+\begin{DoxyCompactList}\small\item\em Test get map origin method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Test for \hyperlink{classMap}{Map} class file. 
+
+\begin{DoxyAuthor}{Author}
+Harsh Kakashaniya and Rohitkrishna Nambiar 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/04/2018 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+B\+SD 3-\/\+Clause
+\end{DoxyCopyright}
+\hypertarget{MapTest_8cpp_DESCRIPTION}{}\subsection{D\+E\+S\+C\+R\+I\+P\+T\+I\+ON}\label{MapTest_8cpp_DESCRIPTION}
+Test implementation for \hyperlink{classMap}{Map} class 
+
+\subsection{Function Documentation}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Grid\+To\+Map)}{TEST_F(MapTest, testGridToMap)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Grid\+To\+Map}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a48516cf53985515c4dcd000280212d03}{}\label{MapTest_8cpp_a48516cf53985515c4dcd000280212d03}
+
+
+Test method to check callback and update map methods. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Frontiers)}{TEST_F(MapTest, testGetFrontiers)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Frontiers}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_afde83efe218e988bfd62290baa2ecd87}{}\label{MapTest_8cpp_afde83efe218e988bfd62290baa2ecd87}
+
+
+Test method to get frontiers from a dummy occupancy grid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Clusters)}{TEST_F(MapTest, testGetClusters)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Clusters}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a82f1b521533be0ebfd5f64e1d72933e3}{}\label{MapTest_8cpp_a82f1b521533be0ebfd5f64e1d72933e3}
+
+
+Test method to get clusters from a dummy occupancy grid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Cluster\+Centroids)}{TEST_F(MapTest, testGetClusterCentroids)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Cluster\+Centroids}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a8127893a11d83ad34bc636f05218a1aa}{}\label{MapTest_8cpp_a8127893a11d83ad34bc636f05218a1aa}
+
+
+Test method to get cluster centroids from a dummy grid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Set\+Map\+Set)}{TEST_F(MapTest, testSetMapSet)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Set\+Map\+Set}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a771e654137ec9f9e0cf480c3ae885c8e}{}\label{MapTest_8cpp_a771e654137ec9f9e0cf480c3ae885c8e}
+
+
+Test set map flag method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Set\+Map\+Height)}{TEST_F(MapTest, testSetMapHeight)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Set\+Map\+Height}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a5b0441d2f357d25be80ac599c7d0a045}{}\label{MapTest_8cpp_a5b0441d2f357d25be80ac599c7d0a045}
+
+
+Test set map height method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Set\+Map\+Width)}{TEST_F(MapTest, testSetMapWidth)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Set\+Map\+Width}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a23fd04d04e553db3fc07550960aef979}{}\label{MapTest_8cpp_a23fd04d04e553db3fc07550960aef979}
+
+
+Test set map width method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Set\+Map\+Reso)}{TEST_F(MapTest, testSetMapReso)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Set\+Map\+Reso}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a24e9ae1b1b2a4a6ea5e078631e3e0710}{}\label{MapTest_8cpp_a24e9ae1b1b2a4a6ea5e078631e3e0710}
+
+
+Test set map resolution method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Set\+Origin)}{TEST_F(MapTest, testSetOrigin)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Set\+Origin}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_afd738ab9a76fb25362fe5a408740b4b4}{}\label{MapTest_8cpp_afd738ab9a76fb25362fe5a408740b4b4}
+
+
+Test set map origin method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Map\+Set)}{TEST_F(MapTest, testGetMapSet)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Map\+Set}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_ab5f7d7d6e85445caf3e9d5e6fe6224dc}{}\label{MapTest_8cpp_ab5f7d7d6e85445caf3e9d5e6fe6224dc}
+
+
+Test get map flag method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Map\+Height)}{TEST_F(MapTest, testGetMapHeight)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Map\+Height}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a1cdee4ee5f9229d6779b70bc4c483207}{}\label{MapTest_8cpp_a1cdee4ee5f9229d6779b70bc4c483207}
+
+
+Test get map height method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Map\+Width)}{TEST_F(MapTest, testGetMapWidth)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Map\+Width}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a336ba319cdc8be4892ec713a70866db2}{}\label{MapTest_8cpp_a336ba319cdc8be4892ec713a70866db2}
+
+
+Test get map width method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Map\+Reso)}{TEST_F(MapTest, testGetMapReso)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Map\+Reso}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_a62be965611c07d197bf712b43312b0ba}{}\label{MapTest_8cpp_a62be965611c07d197bf712b43312b0ba}
+
+
+Test get map resolution method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map\+Test.\+cpp@{Map\+Test.\+cpp}!T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}}
+\index{T\+E\+S\+T\+\_\+F@{T\+E\+S\+T\+\_\+F}!Map\+Test.\+cpp@{Map\+Test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+F(\+Map\+Test, test\+Get\+Origin)}{TEST_F(MapTest, testGetOrigin)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+F (
+\begin{DoxyParamCaption}
+\item[{{\bf Map\+Test}}]{, }
+\item[{test\+Get\+Origin}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{MapTest_8cpp_ac4a90c6c66f3fc25fdcca6ccf15c8a94}{}\label{MapTest_8cpp_ac4a90c6c66f3fc25fdcca6ccf15c8a94}
+
+
+Test get map origin method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}

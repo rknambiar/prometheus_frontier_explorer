@@ -1,0 +1,451 @@
+\hypertarget{classMap}{}\section{Map Class Reference}
+\label{classMap}\index{Map@{Map}}
+
+
+\hyperlink{classMap}{Map} Class.  
+
+
+
+
+{\ttfamily \#include $<$Map.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMap_a0f5ad0fd4563497b4214038cbca8b582}{Map} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \hyperlink{classMap}{Map} class. \end{DoxyCompactList}\item 
+\hyperlink{classMap_aa403fbe09394ccf39747588f5168e3b2}{$\sim$\+Map} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \hyperlink{classMap}{Map} class. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a5d91b013fec2766f7e7092a56829818b}{set\+Map\+Set} (bool value)
+\begin{DoxyCompactList}\small\item\em Function to set flag for map initialized. \end{DoxyCompactList}\item 
+bool \hyperlink{classMap_a360dfc995ca51cd427f4de531d95db17}{get\+Map\+Set} ()
+\begin{DoxyCompactList}\small\item\em Function to get flag for map initialized. \end{DoxyCompactList}\item 
+int \hyperlink{classMap_a92dda02fe42250c303e7fcfba73ba89b}{getmap\+Height} ()
+\begin{DoxyCompactList}\small\item\em Function to get map height. \end{DoxyCompactList}\item 
+int \hyperlink{classMap_a85aa3f85c7c57fffe6bcf6038b1ba288}{getmap\+Width} ()
+\begin{DoxyCompactList}\small\item\em Function to get map width. \end{DoxyCompactList}\item 
+double \hyperlink{classMap_a85211487535a00a6dd1cb003e2989238}{getmap\+Reso} ()
+\begin{DoxyCompactList}\small\item\em Function to get map resolution. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a0b24d829d0234c1422f89b873051a1a8}{setmap\+Height} (int value)
+\begin{DoxyCompactList}\small\item\em Function to set map height. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a9b2a2a242012e28deb30c323b42b8925}{setmap\+Width} (int value)
+\begin{DoxyCompactList}\small\item\em Function to set map width. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a65ddb9c03e089043bf819c1279a3f9f8}{setmap\+Reso} (double value)
+\begin{DoxyCompactList}\small\item\em Function to set map resolution. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a58b0c37d5d5e79dc1f23a0aa08536f6b}{set\+Origin} (geometry\+\_\+msgs\+::\+Point point)
+\begin{DoxyCompactList}\small\item\em Function to set map origin. \end{DoxyCompactList}\item 
+geometry\+\_\+msgs\+::\+Point \hyperlink{classMap_a471580c76f9da5202c5142bfb4ce6e2c}{get\+Origin} ()
+\begin{DoxyCompactList}\small\item\em Function to get map origin. \end{DoxyCompactList}\item 
+const std\+::vector$<$ std\+::vector$<$ \hyperlink{classMapNode}{Map\+Node} $>$ $>$ \& \hyperlink{classMap_ac7632edb702e1e9a62b3380e79a77825}{get\+Map} ()
+\begin{DoxyCompactList}\small\item\em Function to get map. \end{DoxyCompactList}\item 
+bool \hyperlink{classMap_aca7b17a488149e73990e12f6ec506f23}{update\+Map\+Params} (int current\+Width, int current\+Height, double current\+Reso, geometry\+\_\+msgs\+::\+Point map\+Center)
+\begin{DoxyCompactList}\small\item\em Function to update map parameters. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a4feacf5e0ca0961dc48dbdf7b7f42dd8}{update\+Map} (int current\+Width, int current\+Height, double current\+Reso, geometry\+\_\+msgs\+::\+Point map\+Center, const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em Function to update map. \end{DoxyCompactList}\item 
+int \hyperlink{classMap_a707c9abbd2a2458c3fe885cf0d021906}{get\+Frontiers} ()
+\begin{DoxyCompactList}\small\item\em Function to get frontiers from occupancy grid message. \end{DoxyCompactList}\item 
+int \hyperlink{classMap_a18c425e2b087e715cb822af6ad8d99cc}{get\+Clusters} (int threshold)
+\begin{DoxyCompactList}\small\item\em Function to make clusters from array of frontier location. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ double, double $>$ $>$ \hyperlink{classMap_ae2ff0d03880d709d140ed5b72166841b}{get\+Cluster\+Centroids} ()
+\begin{DoxyCompactList}\small\item\em Function to calculate cluster centroids. \end{DoxyCompactList}\item 
+const std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ \& \hyperlink{classMap_a4dc9d7e239d1bd24f2906331a4ef0cec}{get\+Frontier\+Cluster} ()
+\begin{DoxyCompactList}\small\item\em Function to get cluster frontiers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classMap}{Map} Class. 
+
+Class for storing occupancy grid map 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Map@{Map}!Map@{Map}}
+\index{Map@{Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{Map()}{Map()}}]{\setlength{\rightskip}{0pt plus 5cm}Map\+::\+Map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a0f5ad0fd4563497b4214038cbca8b582}{}\label{classMap_a0f5ad0fd4563497b4214038cbca8b582}
+
+
+Default constructor for \hyperlink{classMap}{Map} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\index{Map@{Map}!````~Map@{$\sim$\+Map}}
+\index{````~Map@{$\sim$\+Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{$\sim$\+Map()}{~Map()}}]{\setlength{\rightskip}{0pt plus 5cm}Map\+::$\sim$\+Map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_aa403fbe09394ccf39747588f5168e3b2}{}\label{classMap_aa403fbe09394ccf39747588f5168e3b2}
+
+
+Destructor for \hyperlink{classMap}{Map} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Map@{Map}!get\+Cluster\+Centroids@{get\+Cluster\+Centroids}}
+\index{get\+Cluster\+Centroids@{get\+Cluster\+Centroids}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Cluster\+Centroids()}{getClusterCentroids()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$ double, double $>$ $>$ Map\+::get\+Cluster\+Centroids (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_ae2ff0d03880d709d140ed5b72166841b}{}\label{classMap_ae2ff0d03880d709d140ed5b72166841b}
+
+
+Function to calculate cluster centroids. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::pair$<$double, double$>$$>$ cluster centroid locations 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Clusters@{get\+Clusters}}
+\index{get\+Clusters@{get\+Clusters}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Clusters(int threshold)}{getClusters(int threshold)}}]{\setlength{\rightskip}{0pt plus 5cm}int Map\+::get\+Clusters (
+\begin{DoxyParamCaption}
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a18c425e2b087e715cb822af6ad8d99cc}{}\label{classMap_a18c425e2b087e715cb822af6ad8d99cc}
+
+
+Function to make clusters from array of frontier location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & threshold of frontiers to form cluster\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int number of clusters 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Frontier\+Cluster@{get\+Frontier\+Cluster}}
+\index{get\+Frontier\+Cluster@{get\+Frontier\+Cluster}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Frontier\+Cluster()}{getFrontierCluster()}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ \& Map\+::get\+Frontier\+Cluster (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a4dc9d7e239d1bd24f2906331a4ef0cec}{}\label{classMap_a4dc9d7e239d1bd24f2906331a4ef0cec}
+
+
+Function to get cluster frontiers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::vector$<$std\+::pair$<$int, int$>$$>$$>$ cluster frontiers 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Frontiers@{get\+Frontiers}}
+\index{get\+Frontiers@{get\+Frontiers}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Frontiers()}{getFrontiers()}}]{\setlength{\rightskip}{0pt plus 5cm}int Map\+::get\+Frontiers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a707c9abbd2a2458c3fe885cf0d021906}{}\label{classMap_a707c9abbd2a2458c3fe885cf0d021906}
+
+
+Function to get frontiers from occupancy grid message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int count of frontiers 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Map@{get\+Map}}
+\index{get\+Map@{get\+Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Map()}{getMap()}}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::vector$<$ std\+::vector$<$ {\bf Map\+Node} $>$ $>$ \& Map\+::get\+Map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_ac7632edb702e1e9a62b3380e79a77825}{}\label{classMap_ac7632edb702e1e9a62b3380e79a77825}
+
+
+Function to get map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::vector$<$\+Map\+Node$>$$>$\& map 
+\end{DoxyReturn}
+\index{Map@{Map}!getmap\+Height@{getmap\+Height}}
+\index{getmap\+Height@{getmap\+Height}!Map@{Map}}
+\subsubsection[{\texorpdfstring{getmap\+Height()}{getmapHeight()}}]{\setlength{\rightskip}{0pt plus 5cm}int Map\+::getmap\+Height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a92dda02fe42250c303e7fcfba73ba89b}{}\label{classMap_a92dda02fe42250c303e7fcfba73ba89b}
+
+
+Function to get map height. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int map height 
+\end{DoxyReturn}
+\index{Map@{Map}!getmap\+Reso@{getmap\+Reso}}
+\index{getmap\+Reso@{getmap\+Reso}!Map@{Map}}
+\subsubsection[{\texorpdfstring{getmap\+Reso()}{getmapReso()}}]{\setlength{\rightskip}{0pt plus 5cm}double Map\+::getmap\+Reso (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a85211487535a00a6dd1cb003e2989238}{}\label{classMap_a85211487535a00a6dd1cb003e2989238}
+
+
+Function to get map resolution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double map resolution 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Map\+Set@{get\+Map\+Set}}
+\index{get\+Map\+Set@{get\+Map\+Set}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Map\+Set()}{getMapSet()}}]{\setlength{\rightskip}{0pt plus 5cm}bool Map\+::get\+Map\+Set (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a360dfc995ca51cd427f4de531d95db17}{}\label{classMap_a360dfc995ca51cd427f4de531d95db17}
+
+
+Function to get flag for map initialized. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool flag value to indicate initialized or not 
+\end{DoxyReturn}
+\index{Map@{Map}!getmap\+Width@{getmap\+Width}}
+\index{getmap\+Width@{getmap\+Width}!Map@{Map}}
+\subsubsection[{\texorpdfstring{getmap\+Width()}{getmapWidth()}}]{\setlength{\rightskip}{0pt plus 5cm}int Map\+::getmap\+Width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a85aa3f85c7c57fffe6bcf6038b1ba288}{}\label{classMap_a85aa3f85c7c57fffe6bcf6038b1ba288}
+
+
+Function to get map width. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int map width 
+\end{DoxyReturn}
+\index{Map@{Map}!get\+Origin@{get\+Origin}}
+\index{get\+Origin@{get\+Origin}!Map@{Map}}
+\subsubsection[{\texorpdfstring{get\+Origin()}{getOrigin()}}]{\setlength{\rightskip}{0pt plus 5cm}geometry\+\_\+msgs\+::\+Point Map\+::get\+Origin (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a471580c76f9da5202c5142bfb4ce6e2c}{}\label{classMap_a471580c76f9da5202c5142bfb4ce6e2c}
+
+
+Function to get map origin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+geometry\+\_\+msgs\+::\+Point map origin 
+\end{DoxyReturn}
+\index{Map@{Map}!setmap\+Height@{setmap\+Height}}
+\index{setmap\+Height@{setmap\+Height}!Map@{Map}}
+\subsubsection[{\texorpdfstring{setmap\+Height(int value)}{setmapHeight(int value)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::setmap\+Height (
+\begin{DoxyParamCaption}
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a0b24d829d0234c1422f89b873051a1a8}{}\label{classMap_a0b24d829d0234c1422f89b873051a1a8}
+
+
+Function to set map height. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & map height\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!setmap\+Reso@{setmap\+Reso}}
+\index{setmap\+Reso@{setmap\+Reso}!Map@{Map}}
+\subsubsection[{\texorpdfstring{setmap\+Reso(double value)}{setmapReso(double value)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::setmap\+Reso (
+\begin{DoxyParamCaption}
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a65ddb9c03e089043bf819c1279a3f9f8}{}\label{classMap_a65ddb9c03e089043bf819c1279a3f9f8}
+
+
+Function to set map resolution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em double} & map resolution\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!set\+Map\+Set@{set\+Map\+Set}}
+\index{set\+Map\+Set@{set\+Map\+Set}!Map@{Map}}
+\subsubsection[{\texorpdfstring{set\+Map\+Set(bool value)}{setMapSet(bool value)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::set\+Map\+Set (
+\begin{DoxyParamCaption}
+\item[{bool}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a5d91b013fec2766f7e7092a56829818b}{}\label{classMap_a5d91b013fec2766f7e7092a56829818b}
+
+
+Function to set flag for map initialized. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bool} & flag value to indicate initialized or not\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!setmap\+Width@{setmap\+Width}}
+\index{setmap\+Width@{setmap\+Width}!Map@{Map}}
+\subsubsection[{\texorpdfstring{setmap\+Width(int value)}{setmapWidth(int value)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::setmap\+Width (
+\begin{DoxyParamCaption}
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a9b2a2a242012e28deb30c323b42b8925}{}\label{classMap_a9b2a2a242012e28deb30c323b42b8925}
+
+
+Function to set map width. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & map width\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!set\+Origin@{set\+Origin}}
+\index{set\+Origin@{set\+Origin}!Map@{Map}}
+\subsubsection[{\texorpdfstring{set\+Origin(geometry\+\_\+msgs\+::\+Point point)}{setOrigin(geometry_msgs::Point point)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::set\+Origin (
+\begin{DoxyParamCaption}
+\item[{geometry\+\_\+msgs\+::\+Point}]{point}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a58b0c37d5d5e79dc1f23a0aa08536f6b}{}\label{classMap_a58b0c37d5d5e79dc1f23a0aa08536f6b}
+
+
+Function to set map origin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em geometry\+\_\+msgs\+::\+Point} & map origin\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{Map@{Map}!update\+Map@{update\+Map}}
+\index{update\+Map@{update\+Map}!Map@{Map}}
+\subsubsection[{\texorpdfstring{update\+Map(int current\+Width, int current\+Height, double current\+Reso, geometry\+\_\+msgs\+::\+Point map\+Center, const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&msg)}{updateMap(int currentWidth, int currentHeight, double currentReso, geometry_msgs::Point mapCenter, const nav_msgs::OccupancyGrid::ConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void Map\+::update\+Map (
+\begin{DoxyParamCaption}
+\item[{int}]{current\+Width, }
+\item[{int}]{current\+Height, }
+\item[{double}]{current\+Reso, }
+\item[{geometry\+\_\+msgs\+::\+Point}]{map\+Center, }
+\item[{const nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_a4feacf5e0ca0961dc48dbdf7b7f42dd8}{}\label{classMap_a4feacf5e0ca0961dc48dbdf7b7f42dd8}
+
+
+Function to update map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & map width \\
+\hline
+{\em int} & map height \\
+\hline
+{\em double} & map resolution \\
+\hline
+{\em geometry\+\_\+msgs\+::\+Point} & map center/origin \\
+\hline
+{\em nav\+\_\+msgs\+::\+Occupancy\+Grid\+::\+Const\+Ptr\&} & occupancy grid map message\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool update status 
+\end{DoxyReturn}
+\index{Map@{Map}!update\+Map\+Params@{update\+Map\+Params}}
+\index{update\+Map\+Params@{update\+Map\+Params}!Map@{Map}}
+\subsubsection[{\texorpdfstring{update\+Map\+Params(int current\+Width, int current\+Height, double current\+Reso, geometry\+\_\+msgs\+::\+Point map\+Center)}{updateMapParams(int currentWidth, int currentHeight, double currentReso, geometry_msgs::Point mapCenter)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Map\+::update\+Map\+Params (
+\begin{DoxyParamCaption}
+\item[{int}]{current\+Width, }
+\item[{int}]{current\+Height, }
+\item[{double}]{current\+Reso, }
+\item[{geometry\+\_\+msgs\+::\+Point}]{map\+Center}
+\end{DoxyParamCaption}
+)}\hypertarget{classMap_aca7b17a488149e73990e12f6ec506f23}{}\label{classMap_aca7b17a488149e73990e12f6ec506f23}
+
+
+Function to update map parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & map width \\
+\hline
+{\em int} & map height \\
+\hline
+{\em double} & map resolution \\
+\hline
+{\em geometry\+\_\+msgs\+::\+Point} & map center/origin\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool update status 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/hbk/\+Desktop/\+Software\+Development/\+Final\+Project/rosworld/src/prometheus\+\_\+frontier\+\_\+explorer/include/\hyperlink{Map_8hpp}{Map.\+hpp}\item 
+/home/hbk/\+Desktop/\+Software\+Development/\+Final\+Project/rosworld/src/prometheus\+\_\+frontier\+\_\+explorer/src/\hyperlink{Map_8cpp}{Map.\+cpp}\end{DoxyCompactItemize}
