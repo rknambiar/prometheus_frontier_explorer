@@ -160,7 +160,7 @@ TEST_F(MapTest, testGetFrontiers) {
  *@return none
  */
 TEST_F(MapTest, testGetClusters) {
-  int count = testMap.getFrontiers();
+  testMap.getFrontiers();
   int clusters = testMap.getClusters(1);
   ASSERT_EQ(clusters, 2);
 }
@@ -173,9 +173,8 @@ TEST_F(MapTest, testGetClusters) {
  *@return none
  */
 TEST_F(MapTest, testGetClusterCentroids) {
-  int count = testMap.getFrontiers();
-  int clusters = testMap.getClusters(1);
-  std::vector<std::vector<MapNode>> map = testMap.getMap();
+  testMap.getFrontiers();
+  testMap.getClusters(1);
   std::vector<std::pair<double, double>> centroid =
       testMap.getClusterCentroids();
   ASSERT_NEAR(centroid[0].first, 0.666, 0.1);
