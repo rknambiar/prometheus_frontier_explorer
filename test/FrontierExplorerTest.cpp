@@ -41,12 +41,17 @@
  *
  *  @section DESCRIPTION
  *
- *  Map class implementation
+ *  Test implementation for FrontierExplorer class
  */
 #include <gtest/gtest.h>
 #include "FrontierExplorer.hpp"
 #include "ros/ros.h"
 
+/**
+ * @brief TestSubPub Class
+ *
+ * Test class for publisher and subscriber test.
+ */
 class TestSubPub {
  public:
   void testMarkerPublish(const visualization_msgs::MarkerArray::ConstPtr& msg) {
@@ -55,6 +60,11 @@ class TestSubPub {
   }
 };
 
+/**
+ * @brief FrontierExplorerTest Class
+ *
+ * Test framework class for FrontierExplorer.
+ */
 class FrontierExplorerTest : public ::testing::Test {
  public:
   ros::NodeHandle nh;
@@ -81,6 +91,13 @@ class FrontierExplorerTest : public ::testing::Test {
   }
 };
 
+/**
+ *@brief Test all frontier marker publisher
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(FrontierExplorerTest, testAllMarkerPublish) {
   ros::Rate loopRate(10);
   ros::Subscriber sub = nh.subscribe("/all_frontier_marker_array", 1000,
@@ -89,6 +106,13 @@ TEST_F(FrontierExplorerTest, testAllMarkerPublish) {
   EXPECT_EQ(1, sub.getNumPublishers());
 }
 
+/**
+ *@brief Test segmented frontier marker publisher
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(FrontierExplorerTest, testFrontierSegmentedPublish) {
   ros::Rate loopRate(10);
   ros::Subscriber sub = nh.subscribe("/frontier_marker_array", 1000,
@@ -97,6 +121,13 @@ TEST_F(FrontierExplorerTest, testFrontierSegmentedPublish) {
   EXPECT_EQ(1, sub.getNumPublishers());
 }
 
+/**
+ *@brief Test frontier clusters marker publisher
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(FrontierExplorerTest, testFrontierClusteredPublish) {
   ros::Rate loopRate(10);
   ros::Subscriber sub = nh.subscribe("/frontier_clustor_array", 1000,
@@ -105,6 +136,13 @@ TEST_F(FrontierExplorerTest, testFrontierClusteredPublish) {
   EXPECT_EQ(1, sub.getNumPublishers());
 }
 
+/**
+ *@brief Test reach avoid marker publisher
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(FrontierExplorerTest, testReachAvoidPublish) {
   ros::Rate loopRate(10);
   ros::Subscriber sub = nh.subscribe("/reach_avoid_region", 1000,
@@ -113,6 +151,13 @@ TEST_F(FrontierExplorerTest, testReachAvoidPublish) {
   EXPECT_EQ(1, sub.getNumPublishers());
 }
 
+/**
+ *@brief Test turtlebot velocity publisher
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(FrontierExplorerTest, testVelPublish) {
   ros::Rate loopRate(10);
   ros::Subscriber sub = nh.subscribe("/mobile_base/commands/velocity", 1000,
@@ -121,6 +166,13 @@ TEST_F(FrontierExplorerTest, testVelPublish) {
   EXPECT_EQ(1, sub.getNumPublishers());
 }
 
+/**
+ *@brief Test occupancy grid map subscriber
+ *
+ *@param none
+ *
+ *@return none
+ */
 TEST_F(FrontierExplorerTest, testGridSubscriber) {
   ros::Rate loopRate(10);
   ros::Publisher gridPub = nh.advertise < nav_msgs::OccupancyGrid
