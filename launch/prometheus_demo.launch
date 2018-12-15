@@ -1,0 +1,6 @@
+<launch>
+	<include file="$(find turtlebot_navigation )/launch/gmapping_demo.launch"/>
+
+	<node pkg = "prometheus_frontier_explorer" type = "prometheus" name = "prometheus" output = "screen" launch-prefix="gnome-terminal --command"/>
+
+</launch>

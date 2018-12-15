@@ -1,0 +1,10 @@
+<launch>
+	<!-- Gazebo with custom world -->
+	<include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
+    <arg name="world_file" value="$(find prometheus_frontier_explorer)/world/prometheus_world.world"/>
+	</include>       
+ 	
+	<!-- Rviz -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find prometheus_frontier_explorer)/rviz/prometheusOne.rviz"/>
+
+</launch>
