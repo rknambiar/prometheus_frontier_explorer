@@ -168,7 +168,8 @@ bool FrontierExplorer::checkReachAvoid(std::pair<double, double> goalPoint) {
     double currDistance = std::hypot(row.first - x, row.second - y);
     if (currDistance < 1) {
       ROS_INFO_STREAM(
-          "Found a point close by that should not be visited. Skipping this point..");
+          "Found a point close by that should not be visited. "
+          "Skipping this point..");
       // False means we can not go to that point as it has been added in
       // reach-avoid list
       return false;
@@ -198,7 +199,7 @@ void FrontierExplorer::moveTurtle(
   actionlib::SimpleActionClient < move_base_msgs::MoveBaseAction
       > ac("move_base", true);
 
-  //wait for the action server to come up
+  // wait for the action server to come up
   while (!ac.waitForServer(ros::Duration(5.0))) {
     ROS_INFO_STREAM("Waiting for the move_base action server to come up");
   }
@@ -210,9 +211,9 @@ void FrontierExplorer::moveTurtle(
     ROS_INFO_STREAM("Cluster centroid reached.");
   else
     ROS_INFO_STREAM(
-        "Could not reach cluster centroid. Adding it into regions not to visit again..");
+        "Could not reach cluster centroid. Adding it into"
+        " regions not to visit again..");
   reachAvoid.push_back(centers[id]);
-
 }
 
 void FrontierExplorer::visualizeClusterCenters(std::vector<std::pair<double,
@@ -379,7 +380,7 @@ void FrontierExplorer::publishFrontierPoints(int count) {
         markerCount++;
         if (markerCount < markerLimit) {
           markerArray.markers.push_back(marker);
-          //          std::cout << map[i][j].getX() << "," << map[i][j].getY() << std::endl;
+      // std::cout << map[i][j].getX() << "," << map[i][j].getY() << std::endl;
         }
       }
     }

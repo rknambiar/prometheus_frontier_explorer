@@ -1,0 +1,11 @@
+Done processing ./test/FrontierExplorerTest.cpp
+Done processing ./test/MapNodeTest.cpp
+Done processing ./test/main.cpp
+Done processing ./test/MapTest.cpp
+Done processing ./src/Map.cpp
+Done processing ./src/FrontierExplorer.cpp
+Done processing ./src/main.cpp
+Done processing ./src/MapNode.cpp
+Done processing ./include/FrontierExplorer.hpp
+Done processing ./include/MapNode.hpp
+Done processing ./include/Map.hpp

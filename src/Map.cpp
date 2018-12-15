@@ -151,7 +151,8 @@ void Map::updateMap(int currentWidth, int currentHeight, double currentReso,
   if (updateMapParams(currentWidth, currentHeight, currentReso, mapCenter)) {
     mapSet = false;
     ROS_INFO(
-        "Map reset as one of the parameter has been updated. Will initialize again..");
+        "Map reset as one of the parameter has been updated."
+"Will initialize again..");
   }
 
   int mapIter = 0;
@@ -204,7 +205,6 @@ int Map::getFrontiers() {
     for (int i = 0; i < mapHeight; i++) {
       for (int j = 0; j < mapWidth; j++) {
         if (map[i][j].getProbability() == 0) {
-
           bool frontierFlag = false;
           // Check if neighbor is unexplored node
           for (int k = i - 1; k <= i + 1; k++) {
@@ -259,7 +259,8 @@ int Map::getClusters(int threshold) {
           && map[i - 1][j].getFrontierIndex() == -1
           && map[i][j - 1].getFrontierIndex() == -1)
           || (i - 1 < 0 && j - 1 >= 0 && map[i][j - 1].getFrontierIndex() == -1)
-          || (i - 1 >= 0 && j - 1 < 0 && map[i - 1][j].getFrontierIndex() == -1)) {
+          || (i - 1 >= 0 && j - 1 < 0 &&
+          map[i - 1][j].getFrontierIndex() == -1)) {
         map[i][j].setFrontierIndex(clusters.size());
         std::vector<std::pair<int, int>> coordinates;
         coordinates.push_back(std::make_pair(i, j));
@@ -277,7 +278,8 @@ int Map::getClusters(int threshold) {
 //      } else if (i - 1 >= 0 && j < mapWidth - 1
 //          && map[i - 1][j + 1].getFrontierIndex() != -1) {
 //        map[i][j].setFrontierIndex(map[i - 1][j + 1].getFrontierIndex());
-//        clusters[map[i][j].getFrontierIndex()].push_back(std::make_pair(i, j));
+//        clusters[map[i][j].getFrontierIndex()]
+//        .push_back(std::make_pair(i, j));
 //      }
 //    }
 //  }
