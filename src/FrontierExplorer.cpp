@@ -282,7 +282,7 @@ void FrontierExplorer::visualizeClusterFrontiers() {
   auto frontierCluster = slamMap.getFrontierCluster();
   std::vector<std::vector<MapNode>> map = slamMap.getMap();
   // 8 different colors(r,g,b). Loop after we get there
-  int colorSize = 8;
+//  int colorSize = 8;
   std::vector<std::tuple<double, double, double>> colors;
   colors.push_back(std::make_tuple(0.5, 0.0, 0.0));
   colors.push_back(std::make_tuple(0.0, 0.0, 1.0));

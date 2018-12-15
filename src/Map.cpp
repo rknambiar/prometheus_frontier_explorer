@@ -302,9 +302,9 @@ int Map::getClusters(int threshold) {
 std::vector<std::pair<double, double>> Map::getClusterCentroids() {
   std::vector<std::pair<double, double>> centroids;
   for (auto row : frontierCluster) {
-    int i = 0, j = 0;
     double sumX = 0, sumY = 0;
     for (auto point : row) {
+      int i = 0, j = 0;
       i = point.first;
       j = point.second;
       sumX = sumX + map[i][j].getX();
