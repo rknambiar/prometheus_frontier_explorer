@@ -129,7 +129,8 @@ void FrontierExplorer::processOccupancyGrid(const nav_msgs::OccupancyGrid
   int currheight = gridMsg->info.height;  // y
   double currreso = gridMsg->info.resolution;
   geometry_msgs::Point currcenter = gridMsg->info.origin.position;
-  ROS_INFO_STREAM("[MAP INFO] Width: " << currwidth << ", Height: " << currheight
+  ROS_INFO_STREAM("[MAP INFO] Width: " << currwidth << ", Height: "
+          << currheight
           << ", Resolution: " << currreso << ", Origin: "
           << gridMsg->info.origin.position.x << ","
           << gridMsg->info.origin.position.y);
