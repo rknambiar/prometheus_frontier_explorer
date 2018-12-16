@@ -1,6 +1,7 @@
 <h1 align="center"> Prometheus - Frontier Exploration Package</h1>
 
 [![Build Status](https://travis-ci.org/rohit517/prometheus_frontier_explorer.svg?branch=master)](https://travis-ci.org/rohit517/prometheus_frontier_explorer)
+[![Coverage Status](https://coveralls.io/repos/github/rohit517/prometheus_frontier_explorer/badge.svg?branch=master)](https://coveralls.io/github/rohit517/prometheus_frontier_explorer?branch=master)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/rohit517/prometheus_frontier_explorer/blob/master/LICENSE)
 
 ## Overview
@@ -18,7 +19,9 @@ This will enable us to complete the project in defined time. At the end, we will
 to plan correctly.
 
 [Product Backlog](https://docs.google.com/spreadsheets/d/1WyqjxLJYhD7yKD_-subkLtXecHzkrexpV9mALVQkXeg/edit?usp=sharing) <br />
-[Sprint Planning Notes](https://docs.google.com/document/d/1KBs8nIbSC2j8wkA-MLAoiLhvDDQ5_QhBMDhgUkwR7bk/edit?usp=sharing)
+[Sprint Planning Notes](https://docs.google.com/document/d/1KBs8nIbSC2j8wkA-MLAoiLhvDDQ5_QhBMDhgUkwR7bk/edit?usp=sharing) <br />
+[Presentation](https://docs.google.com/presentation/d/1ktjKRh5F1fMgg1Ez11MuhXMxubfISAWkKuUcvyOFuvI/edit?usp=sharing) <br />
+[Video Demonstration](https://youtu.be/RRE3c3Qf5tA)
 
 ## Dependencies
 For running prometheus we must have the following dependencies:
@@ -124,6 +127,7 @@ As we are using continous intergration(CI) process of development. To test the s
 ```
 cd ~/catkin_ws
 catkin_make run_tests
+source devel/setup.bash 
 rostest prometheus_frontier_explorer prometheusTests.launch
 ```
 which will give similar results
@@ -174,7 +178,22 @@ cmake -D COVERAGE=ON -D CMAKE_BUILD_TYPE=Debug ../
 make
 make code_coverage
 ```
-This generates a index.html page in the build/coverage sub-directory that can be viewed locally in a web browser.
+This generates a index.html page in the build/coverage sub-directory that can be viewed locally in a web browser. We obtained a 91.7% function coverage the output of which is attached below.
+```
+                                     |Lines       |Functions  |Branches    
+Filename                             |Rate     Num|Rate    Num|Rate     Num
+===========================================================================
+[/home/travis/catkin_ws/src/prometheus_frontier_explorer/]
+src/FrontierExplorer.cpp             |11.4%    280|28.6%    14|    -      0
+src/Map.cpp                          |93.0%    157|95.2%    21|    -      0
+src/MapNode.cpp                      | 100%     34| 100%    12|    -      0
+test/FrontierExplorerTest.cpp        |91.1%     45|90.9%    33|    -      0
+test/MapNodeTest.cpp                 | 100%     36|97.9%    47|    -      0
+test/MapTest.cpp                     | 100%     75|98.4%    63|    -      0
+test/main.cpp                        | 100%      7| 100%     3|    -      0
+===========================================================================
+                               Total:|58.5%    634|91.7%   193|    -      0
+```
 
 ## Doxygen Documentation
 
@@ -227,5 +246,5 @@ Press Ctrl+C in both the terminals running Gazebo and Gmapping + Prometheus node
 
 
 ## Authors/About Us
-Harsh Kakashaniya ([harshkakashaniya](https://github.com/harshkakashaniya)) - I am a Masters of Engineering in Robotics student at the University of Maryland, College Park. I am intereted in mobile robots.<br />
+Harsh Kakashaniya ([harshkakashaniya](https://github.com/harshkakashaniya)) - I am a Masters of Engineering in Robotics student at the University of Maryland, College Park. I am intereted in mobile robots.<br /> <br />
 Rohitkrishna Nambiar ([rohit517](https://github.com/rohit517)) - I am a Masters of Engineering in Robotics student at the University of Maryland, College Park. I am intereted in computer vision and machine learning for autonomous robots.
